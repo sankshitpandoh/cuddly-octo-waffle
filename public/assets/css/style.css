@@ -1,0 +1,45 @@
+.pageWrapper{
+    background-color: #222831;
+    height: 100vh;
+    overflow: hidden;
+}
+.main-nav{
+    background-color: #121212;
+    height: 100vh;
+}
+.main-nav #userName{
+    font-size: 18px;
+    color: white;
+    font-family: 'Montserrat-Bold';
+}
+.main-nav #clock{
+    font-family: 'Montserrat-Bold';
+    color: #FFC68A;
+}
+.fa-pencil{
+    cursor: pointer;
+    color: grey;
+    font-size: 15px;
+}
+.fa-pencil:hover{
+    color: white ;
+}
+.main-nav ul{
+    width: 100%;
+}
+.main-nav li{
+    cursor: pointer;
+    width: 100%;
+    color: #E3E3E3;
+    background-color: #2D2D2D;
+    transition: 0.65s all;
+    font-family: 'Montserrat-Regular';
+}
+.main-nav li:hover{
+    background-color: #FFC68A;
+    color: #262833;
+}
+.main-nav .active-nav{
+    background-color: #FFC68A;
+    color: #262833;
+}

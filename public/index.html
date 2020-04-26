@@ -18,6 +18,37 @@
 
     </head>
     <body>
+        <div class="pageWrapper">
+            <div class="f-container">
+                <div class="row">
+
+                    <div class="col-2">
+                        <div class="main-nav">
+
+                            <div class="d-flex align-items-center justify-content-between p-2 mb-2">
+                                <p id="userName"></p>
+                                <i class="fa fa-pencil" onclick="changeUserName()"></i>
+                            </div>
+                            <div class="d-flex justify-content-center" id="clock"></div>
+                            <div class="d-flex t-nav">
+                                <ul class="d-flex flex-column">
+                                    <li class=" px-2 my-1" id="summary" onclick="load(this)">Summary</li>
+                                    <li class=" px-2 my-1" id="tasks" onclick="load(this)">Tasks</li>
+                                    <li class=" px-2 my-1" id="projects" onclick="load(this)">Projects</li>
+                                    <li class=" px-2 my-1" id="goals" onclick="load(this)">Goals</li>
+                                    <li class=" px-2 my-1" id="reminders" onclick="load(this)">Reminders</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-10">
+                        <div id="main-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="assets/js/main.js"></script>
     </body>
 </html>

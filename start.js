@@ -1,17 +1,12 @@
-var http = require('http'),
-    fs = require('fs');
+var express = require('express');
+var app = express();
 
-/* Creating server */
-var server = http.createServer(function (request, response) {
-    if (request.url == '/' || request.url == '/public/index.html') {
-        var fileStream = fs.createReadStream('./public/index.html');
-
-        fileStream.pipe(response);
-    } else {
-        response.writeHead(200, {"Content-Type": "text/plain"});
-        response.end("Files not found\n");
-    }
-});
+app.use(express.static('public'));
 
 /*Start listening*/
-server.listen(8000);
+let server = app.listen(8000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    
+    console.log("Keep Safe running at http://%s:%s", host, port)
+ })
