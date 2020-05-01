@@ -59,5 +59,36 @@ function loadContent(id){
     }
     getData.open("GET", locationData, true);
     getData.send();
-};
 
+    updateData(id)
+};
+function updateData(id){
+    let identify = {
+        id : id
+    }
+    let getData = new XMLHttpRequest();
+    getData.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText)
+            // document.getElementById(id + "-list").innerHTML = this.responseText;
+        }
+    }
+    getData.open("POST", "http://localhost:8000/receiveData", true )
+    getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    getData.send((JSON.stringify(identify)))
+}
+function aare(){
+    console.log('task sent to server')
+    let myTask = {
+        title : document.forms["add-task"]["t-title"].value,
+        description: document.forms["add-task"]["t-description"].value,
+        date: document.forms["add-task"]["t-date"].value
+    }
+    let myJSON = JSON.stringify(myTask);
+    console.log(myJSON)
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:8000/pandoh", true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send(myJSON);
+    return false
+}

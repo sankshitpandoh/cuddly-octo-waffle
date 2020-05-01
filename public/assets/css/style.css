@@ -43,3 +43,11 @@
     background-color: #FFC68A;
     color: #262833;
 }
+
+/* tasks tab */
+#main-display .new-task{
+    background-color: #30475e;
+    border-right: 2px solid white;
+    border-radius: 5px;
+    color: yellow;
+}
