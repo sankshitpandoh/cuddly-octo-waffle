@@ -90,5 +90,14 @@ function aare(){
     xhttp.open("POST", "http://localhost:8000/pandoh", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(myJSON);
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            updateData("tasks")
+        }
+    }
+    document.forms["add-task"]["t-title"].value = ""
+    document.forms["add-task"]["t-description"].value =""
+    document.forms["add-task"]["t-date"].value = ""
     return false
 }
+

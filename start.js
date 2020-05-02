@@ -13,31 +13,26 @@
         
         console.log("Keep Safe running at http://%s:%s", host, port)
     })
-    // showTasks()
-    // function showTasks(){
-    //     app.get('./data/tasks.json', (req, res) => res.send('Hello World!'))
-    // }
+
     app.post("/pandoh", function(req, res){
         // console.log(req.body.title)
         addTask(req.body)
+        res.send("request processed")
     })
     app.post("/receiveData", function(req, res){
         console.log(req.body.id)
-        let sData
         fs.readFile('./data/' + req.body.id + '.json', function(err, Content){
             // Data not parsing properly, fix this 
             console.log("hi")
-            sData = JSON.parse(Content)
-            // sData = JSON.stringify(Content)
-            console.log(sData[0])
+            console.log(JSON.parse(Content))
+            res.json(JSON.parse(Content))
         })
-        res.json(sData)
     })
     function addTask(taskData){
         let task = {
-            "taskTitle": taskData.title,
-            "taskDescription" : taskData.description,
-            "taskDate" : taskData.date
+            taskTitle: taskData.title,
+            taskDescription : taskData.description,
+            taskDate : taskData.date
         } 
         let data = task
         fs.readFile('./data/tasks.json', function (err, OldData) {
