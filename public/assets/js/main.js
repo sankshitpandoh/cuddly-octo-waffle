@@ -48,20 +48,23 @@ function load(selectedElem){
     selectedElem.classList.add('active-nav');
     loadContent(selectedElem.id);
 }
-//load content which nav option is selected
+
+//load content on which nav option is selected
 function loadContent(id){
     let locationData = "pages/" + id + ".html"
     let getData = new XMLHttpRequest();
     getData.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
+            // console.log("we in")
             document.getElementById("main-display").innerHTML = this.responseText;
+            updateData(id)
         }
     }
     getData.open("GET", locationData, true);
     getData.send();
-
-    updateData(id)
 };
+
+// update data on tab which is opened or which is being worked on
 function updateData(id){
     let identify = {
         id : id
@@ -69,20 +72,56 @@ function updateData(id){
     let getData = new XMLHttpRequest();
     getData.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText)
-            // document.getElementById(id + "-list").innerHTML = this.responseText;
+            console.log(JSON.parse(this.responseText))
+            let rData = JSON.parse(this.responseText)
+            if(rData.length < 2){
+                document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
+            }
+            else{
+                if(id == "tasks"){
+                    updateTasks(rData,id)
+                }
+                else if(id == "summary"){
+
+                }
+                else if(id == "projects"){
+
+                }
+                else if(id == "goals"){
+
+                }
+                else{
+
+                }
+            }
         }
     }
     getData.open("POST", "http://localhost:8000/receiveData", true )
     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
     getData.send((JSON.stringify(identify)))
 }
-function aare(){
+
+// show all tasks
+let taskVar
+function updateTasks(rData,id){
+    document.getElementById(id + '-list').innerHTML = ""
+    for(let i = 1 ; i <rData.length; i++ ){
+        document.getElementById(id + '-list').innerHTML += `<div class="single-${id} mb-2 p-1" onclick="expandTask()"> <h4>${rData[i].tasksTitle}</h4> <p>${rData[i].tasksDescription}</p> </div>`
+    }
+}
+function expandTask(){
+    console.log('hi')
+}
+// Send task to server to store
+function sendTask(){
     console.log('task sent to server')
+    time = new Date()
+    time = Date.parse(time)
     let myTask = {
         title : document.forms["add-task"]["t-title"].value,
         description: document.forms["add-task"]["t-description"].value,
-        date: document.forms["add-task"]["t-date"].value
+        date: document.forms["add-task"]["t-date"].value,
+        timeStamp: time
     }
     let myJSON = JSON.stringify(myTask);
     console.log(myJSON)
@@ -92,6 +131,7 @@ function aare(){
     xhttp.send(myJSON);
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
+            // If the task is successfully stored on server, update the data on tasks
             updateData("tasks")
         }
     }

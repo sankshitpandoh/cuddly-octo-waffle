@@ -30,9 +30,10 @@
     })
     function addTask(taskData){
         let task = {
-            taskTitle: taskData.title,
-            taskDescription : taskData.description,
-            taskDate : taskData.date
+            tasksTitle: taskData.title,
+            tasksDescription : taskData.description,
+            tasksDate : taskData.date,
+            timeStamp : taskData.timeStamp
         } 
         let data = task
         fs.readFile('./data/tasks.json', function (err, OldData) {

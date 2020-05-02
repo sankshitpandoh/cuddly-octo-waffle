@@ -1,10 +1,10 @@
 .pageWrapper{
-    background-color: #222831;
+    background-color: #121212;
     height: 100vh;
     overflow: hidden;
 }
 .main-nav{
-    background-color: #121212;
+    background-color: #1D1D1D;
     height: 100vh;
 }
 .main-nav #userName{
@@ -46,8 +46,76 @@
 
 /* tasks tab */
 #main-display .new-task{
-    background-color: #30475e;
-    border-right: 2px solid white;
+    /* background-color: #272121; */
+    border-right: 2px solid #A4ADE9;
+    border-radius: 2px;
+    color: #A4ADE9;
+    font-family: 'Montserrat-Regular';
+}
+#main-display .new-task h3{
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'Montserrat-Bold';
+}
+#main-display .new-task input{
+    background-color: transparent;
+    border: none;
+    font-family: 'Montserrat-Light';
+    color: #FFC68A;
+    border-bottom: 1px solid #A4ADE9;
+}
+#main-display .new-task .submit-button{
+    border: none;
+    background-color: #1D1D1D;
+    width: 25%;
+    margin-left: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Montserrat-Regular';
+    font-weight: 300;
+    transition: all 0.5s;
+}
+#main-display .new-task .submit-button:hover{
+    background-color: #FFC68A;
+    color: #1D1D1D;
+}
+/* #main-display .task-container{
+    overflow-y: auto;
+    max-height: 100vh;
+} */
+#main-display .task-container h3{
+    font-family: 'Montserrat-Bold';
+    color: #A4ADE9;
+    background-color: #121212;
+}
+#main-display .task-container .no-data{
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.92);
+    /* color: #FFC68A; */
+}
+#main-display .task-container #tasks-list{
+    overflow-y: auto;
+    max-height: 100vh;
+}
+#main-display .task-container #tasks-list .single-tasks{
+    background-color: rgba(48, 71, 94,0.70);
     border-radius: 5px;
-    color: yellow;
+    color: black;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+#main-display .task-container #tasks-list .single-tasks:hover{
+    background-color: rgba(48, 71, 94,0.95);
+
+}
+#main-display .task-container #tasks-list .single-tasks h4{
+    font-size: 20px;
+    font-family: 'Montserrat-Regular';
+    color: #FFC68A;
+}
+#main-display .task-container #tasks-list .single-tasks p{
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'Montserrat-Light';
+    max-width: 60%;
+    max-height: 24px;
+    overflow: hidden;
 }
