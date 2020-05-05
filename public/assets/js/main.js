@@ -106,12 +106,52 @@ let taskVar
 function updateTasks(rData,id){
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
-        document.getElementById(id + '-list').innerHTML += `<div class="single-${id} mb-2 p-1" onclick="expandTask()"> <h4>${rData[i].tasksTitle}</h4> <p>${rData[i].tasksDescription}</p> </div>`
+        document.getElementById(id + '-list').innerHTML += `<div class="single-${id} mb-2 p-1" onclick="expandTask(this)"> 
+                                                                <h4>${rData[i].tasksTitle}</h4> 
+                                                                <p class="mb-2">${rData[i].tasksDescription}</p>
+                                                                <div class="options row">
+                                                                    <div class="col-3">
+                                                                        <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this,${i})">
+                                                                            <p>Delete</p>
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-3">
+                                                                        <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this)">
+                                                                            <p>Completed</p>
+                                                                            <i class="fa fa-check"></i> 
+                                                                        </div>    
+                                                                    </div>
+                                                                </div>
+                                                            </div>`
     }
 }
-function expandTask(){
-    console.log('hi')
+//Expand a single slected task
+function expandTask(x){
+    let y = document.querySelectorAll(".single-tasks")
+    for(let i = 0 ; i < y.length; i++){
+        y[i].style.maxHeight = `50px`
+    }
+    x.style.maxHeight = "100%"
 }
+
+//Remove the selected task
+function taskRemove(x,i){
+    let identify ={
+        id : i
+    }
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST" , "http://localhost:8000/rmtask" , true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send((JSON.stringify(identify)));
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            // If the task is successfully removed from server, update the data on tasks
+            updateData("tasks")
+        }
+    }
+}
+
 // Send task to server to store
 function sendTask(){
     console.log('task sent to server')
@@ -121,6 +161,7 @@ function sendTask(){
         title : document.forms["add-task"]["t-title"].value,
         description: document.forms["add-task"]["t-description"].value,
         date: document.forms["add-task"]["t-date"].value,
+        time: document.forms["add-task"]["t-time"].value,
         timeStamp: time
     }
     let myJSON = JSON.stringify(myTask);
