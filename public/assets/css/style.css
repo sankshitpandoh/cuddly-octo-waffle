@@ -44,7 +44,8 @@
     color: #262833;
 }
 
-/* tasks tab */
+/* ----------------------------- tasks tab 
+------------------------------- */
 #main-display .new-task{
     /* background-color: #272121; */
     border-right: 2px solid #A4ADE9;
@@ -134,6 +135,25 @@
     transition: 0.5s all;
     font-family: 'Montserrat-Regular';
 
-}#main-display .task-container #tasks-list .single-tasks .options .single-option:hover p{
+}
+#main-display .task-container #tasks-list .single-tasks .options .single-option:hover p{
     color: #ececec;
+}
+
+/* ---------------------------- Goals tab
+------------------------------- */
+#goals-list{
+    height: 75vh;
+    /* background-color: red; */
+    border-bottom: 4px solid #FFC68A;
+    border-radius: 5px;
+    overflow-y: scroll;
+}
+#goals-list .single-month{
+    min-height: 250px;
+    background-color: #262833;
+    border-radius: 6px;
+}
+#goals-list .single-month h3{
+    color: #7E8CE0;
 }

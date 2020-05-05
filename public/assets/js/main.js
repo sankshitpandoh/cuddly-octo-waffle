@@ -1,4 +1,6 @@
 let userName
+let today //Stores today's date
+let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December']
 getUserName()
 startClock()
 //Load default content - summary
@@ -16,7 +18,8 @@ function getUserName(){
         document.getElementById("userName").innerHTML = userName;
     }
 }
-//Change User Name
+
+//Change or Update User Name
 function changeUserName(){
     userName = prompt("Enter new user name", "USER NAME");
     localStorage.removeItem('userName');
@@ -25,7 +28,7 @@ function changeUserName(){
 }
 
 function startClock(){
-    let today = new Date();
+    today = new Date();
     let hours = today.getHours();
     let minutes = today.getMinutes();
     let seconds = today.getSeconds();
@@ -74,7 +77,7 @@ function updateData(id){
         if (this.readyState == 4 && this.status == 200) {
             console.log(JSON.parse(this.responseText))
             let rData = JSON.parse(this.responseText)
-            if(rData.length < 2){
+            if(rData.length < 2 && id != "goals"){
                 document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
             }
             else{
@@ -88,7 +91,7 @@ function updateData(id){
 
                 }
                 else if(id == "goals"){
-
+                    updateGoals(rData,id)
                 }
                 else{
 
@@ -102,7 +105,6 @@ function updateData(id){
 }
 
 // show all tasks
-let taskVar
 function updateTasks(rData,id){
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
@@ -126,13 +128,44 @@ function updateTasks(rData,id){
                                                             </div>`
     }
 }
+
+// Send task to server to store
+function sendTask(){
+    time = new Date()
+    time = Date.parse(time)
+    let myTask = {
+        title : document.forms["add-task"]["t-title"].value,
+        description: document.forms["add-task"]["t-description"].value,
+        date: document.forms["add-task"]["t-date"].value,
+        time: document.forms["add-task"]["t-time"].value,
+        timeStamp: time
+    }
+    let myJSON = JSON.stringify(myTask);
+    console.log(myJSON);
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:8000/pandoh", true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send(myJSON);
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            // If the task is successfully stored on server, update the data on tasks
+            console.log('task sent to server')
+            updateData("tasks")
+        }
+    }
+    document.forms["add-task"]["t-title"].value = "";
+    document.forms["add-task"]["t-description"].value ="";
+    document.forms["add-task"]["t-date"].value = "";
+    return false;
+}
+
 //Expand a single slected task
 function expandTask(x){
-    let y = document.querySelectorAll(".single-tasks")
+    let y = document.querySelectorAll(".single-tasks");
     for(let i = 0 ; i < y.length; i++){
-        y[i].style.maxHeight = `50px`
+        y[i].style.maxHeight = `50px`;
     }
-    x.style.maxHeight = "100%"
+    x.style.maxHeight = "100%";
 }
 
 //Remove the selected task
@@ -152,33 +185,13 @@ function taskRemove(x,i){
     }
 }
 
-// Send task to server to store
-function sendTask(){
-    console.log('task sent to server')
-    time = new Date()
-    time = Date.parse(time)
-    let myTask = {
-        title : document.forms["add-task"]["t-title"].value,
-        description: document.forms["add-task"]["t-description"].value,
-        date: document.forms["add-task"]["t-date"].value,
-        time: document.forms["add-task"]["t-time"].value,
-        timeStamp: time
+// Goals
+function updateGoals(){
+    let currentMonth = today.getMonth();
+    console.log(months[currentMonth])
+    document.getElementById("goals-list").innerHTML = "";
+    for(let i = currentMonth; i < 12; i++){
+        document.getElementById("goals-list").innerHTML += `<div class = "col-4 mb-2"><div class="single-month d-flex justify-content-center" id="month-${i}"><h3>${months[i]}</h3></div></div>` 
     }
-    let myJSON = JSON.stringify(myTask);
-    console.log(myJSON)
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/pandoh", true);
-    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    xhttp.send(myJSON);
-    xhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) {
-            // If the task is successfully stored on server, update the data on tasks
-            updateData("tasks")
-        }
-    }
-    document.forms["add-task"]["t-title"].value = ""
-    document.forms["add-task"]["t-description"].value =""
-    document.forms["add-task"]["t-date"].value = ""
-    return false
 }
 
