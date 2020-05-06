@@ -1,1 +1,23 @@
 <div id="goals-list" class="row my-2"></div>
+<div class="upcoming-goals">
+    <h2>Upcoming Goals</h2>
+    <div id="upcoming-goals-list"></div>
+</div>
+<div id="single-month-tab" class="align-items-center">
+    <i class="fa fa-times close-tab" onclick="closeGoals()"></i>
+    <div id="goal-info">
+        <h2 id="goal-month" class="ml-2"></h2>
+        <div class="row">
+            <div class="col-6" id="g-list"></div>
+            <div class="col-5">
+                <form class="d-flex flex-column" name="add-goal">
+                    <span>Goal :</span>
+                    <input type="text" name="g-title" required />
+                    <span>Description: </span>
+                    <input type="text" name="g-description" placeholder="Enter your goal description here" />
+                    <input class="submit-button p-2" type="submit" value="Add Goal">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

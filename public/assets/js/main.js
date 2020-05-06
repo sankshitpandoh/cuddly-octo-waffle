@@ -185,13 +185,54 @@ function taskRemove(x,i){
     }
 }
 
-// Goals
-function updateGoals(){
+// Update Goals
+function updateGoals(rData,id){
+    console.log(id)
+    console.log(rData)
     let currentMonth = today.getMonth();
-    console.log(months[currentMonth])
+    console.log(months[currentMonth]);
     document.getElementById("goals-list").innerHTML = "";
     for(let i = currentMonth; i < 12; i++){
-        document.getElementById("goals-list").innerHTML += `<div class = "col-4 mb-2"><div class="single-month d-flex justify-content-center" id="month-${i}"><h3>${months[i]}</h3></div></div>` 
+        document.getElementById("goals-list").innerHTML += `<div class = "col-4 mb-4">
+                                                                <h3 class="text-center mb-2">${months[i]}</h3>
+                                                                <div class="single-month d-flex flex-column py-3 px-2" id="month-${i}" onclick="openGoals(this.id)">
+                                                                </div>
+                                                            </div>` 
     }
+    for(let i = currentMonth; i < 12; i++){
+        console.log(rData[i][i].length)
+        document.getElementById("month-" + i).innerHTML = ""
+        for(let j = 1; j < rData[i][i].length; j++){
+            if(j > 7){
+                // To stop the loop when number of inner items increases 7
+                // Only display 7 maximum gaols in calender view
+                break
+            }
+            else{
+            // rData[i][i][j] is used to access inner properties from json file of goals
+            document.getElementById("month-" + i).innerHTML += `<h5 class="text-center mb-2">${rData[i][i][j].goalTitle}</h5>`
+            }
+
+        }
+    }
+
+}
+
+// Open selected month goal list
+function openGoals(x){
+    document.getElementById("single-month-tab").style.display ="flex";
+    let month = x.substring(6,x.length);
+    document.getElementById("goal-month").innerHTML = months[month];
+    displayGoals(x)
+}
+
+//Close the goals tab
+function closeGoals(){
+    document.getElementById("single-month-tab").style.display ="none";
+}
+
+// Display goals month wise on opened tab
+function displayGoals(x){
+
 }
 

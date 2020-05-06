@@ -143,17 +143,62 @@
 /* ---------------------------- Goals tab
 ------------------------------- */
 #goals-list{
-    height: 75vh;
-    /* background-color: red; */
+    height: 70vh;
     border-bottom: 4px solid #FFC68A;
     border-radius: 5px;
     overflow-y: scroll;
 }
 #goals-list .single-month{
-    min-height: 250px;
+    height: 250px;
     background-color: #262833;
     border-radius: 6px;
+    cursor: pointer;
+    transition: 0.5s all;
+    overflow: hidden;
+    font-family: 'Montserrat-Regular';
+
 }
-#goals-list .single-month h3{
+#goals-list h3{
     color: #7E8CE0;
+    transition: 0.5s all;
+    font-family: 'Montserrat-Bold';
 }
+#goals-list .single-month:hover{
+    background-color: #848cb5;
+}
+.upcoming-goals h2{
+    font-family: 'Montserrat-Bold';
+    color: #ececec;
+}
+#single-month-tab{
+    position: fixed;
+    background-color: rgba(30, 30, 30, 0.75);
+    margin-left: -30px;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+#single-month-tab .close-tab{
+    position: fixed;
+    top: 0;
+    right: 25px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #ececec;
+    transition: 0.5s all;
+}
+#single-month-tab .close-tab:hover{
+    color: #adadad;
+}
+#single-month-tab #goal-info{
+    min-height: 50vh;
+    max-height: 80vh;
+    background-color: #848cb5 ;
+    width: 85%;
+    border-radius: 5px;
+
+}
+/* #single-month-tab #goal-info form{
+    border-left: 2px solid black;
+} */
