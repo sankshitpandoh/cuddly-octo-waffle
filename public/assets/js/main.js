@@ -1,5 +1,6 @@
 let userName
 let today //Stores today's date
+let rData
 let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December']
 getUserName()
 startClock()
@@ -76,7 +77,7 @@ function updateData(id){
     getData.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
             console.log(JSON.parse(this.responseText))
-            let rData = JSON.parse(this.responseText)
+            rData = JSON.parse(this.responseText)
             if(rData.length < 2 && id != "goals"){
                 document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
             }
@@ -223,7 +224,7 @@ function openGoals(x){
     document.getElementById("single-month-tab").style.display ="flex";
     let month = x.substring(6,x.length);
     document.getElementById("goal-month").innerHTML = months[month];
-    displayGoals(x)
+    displayGoals(month)
 }
 
 //Close the goals tab
@@ -233,6 +234,42 @@ function closeGoals(){
 
 // Display goals month wise on opened tab
 function displayGoals(x){
-
+    document.getElementById("g-list").innerHTML = ""
+    if(rData[x][x].length < 2){
+        document.getElementById("g-list").innerHTML = `<h3 class="ml-2">Oops! You have no goals for ${months[x]} </h3>
+                                                        <h3 class="ml-2">Add one now!</h3>`
+    }
+    else{
+        for(let i = 1; i < rData[x][x].length; i++ ){
+            console.log('hi')
+            document.getElementById("g-list").innerHTML += `<div class="single-goal m-2" onclick="expandGoals(this)">
+                                                                <h5 class="text-left ml-2 mb-2">${rData[x][x][i].goalTitle}</h5>
+                                                                <p class="ml-2 mb-2">${rData[x][x][i].goalDescription}</p>
+                                                                <div class="options row pl-0">
+                                                                <div class="col-4">
+                                                                    <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this,${i})">
+                                                                        <p>Delete</p>
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this)">
+                                                                        <p>Completed</p>
+                                                                        <i class="fa fa-check"></i> 
+                                                                    </div>    
+                                                                </div>
+                                                            </div>
+                                                            </div>`
+        }
+    }
 }
 
+//To expand selected goals to view details
+function expandGoals(x){
+    console.log(x)
+    let y = document.querySelectorAll(".single-goal");
+    for(let i = 0 ; i < y.length; i++){
+        y[i].style.height = `25px`;
+    }
+    x.style.height = "auto";
+}

@@ -1,95 +1,67 @@
 [ {"0" : [{
-    "goalTitle":"Task title is stored here",
-    "goalDescription":"Task description is stored here",
+    "goalTitle":"Goal title is stored here",
+    "goalDescription":"Goal description is stored here",
     "timeStamp":"Time when goal is added is stored here"}]
     },
     {"1" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"2" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"3" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"4" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"},
         {
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
-        "timeStamp":"Time when goal is added is stored here"},
-        {
-            "goalTitle":"Task title is stored here",
-            "goalDescription":"Task description is stored here",
-            "timeStamp":"Time when goal is added is stored here"},
-            {
-                "goalTitle":"Task title is stored here",
-                "goalDescription":"Task description is stored here",
-                "timeStamp":"Time when goal is added is stored here"},
-                {
-                    "goalTitle":"Task title is stored here",
-                    "goalDescription":"Task description is stored here",
-                    "timeStamp":"Time when goal is added is stored here"},
-                    {
-                        "goalTitle":"Task title is stored here",
-                        "goalDescription":"Task description is stored here",
-                        "timeStamp":"Time when goal is added is stored here"},
-                        {
-                            "goalTitle":"Task title is stored here",
-                            "goalDescription":"Task description is stored here",
-                            "timeStamp":"Time when goal is added is stored here"},
-                            {
-                                "goalTitle":"Task title is stored here",
-                                "goalDescription":"Task description is stored here",
-                                "timeStamp":"Time when goal is added is stored here"},
-                                {
-                                    "goalTitle":"Task title is stored here",
-                                    "goalDescription":"Task description is stored here",
-                                    "timeStamp":"Time when goal is added is stored here"}]
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
+        "timeStamp":"Time when goal is added is stored here"}]
     },
     
     
     {"5" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"6" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"7" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"8" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"9" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"10" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     },
     {"11" : [{
-        "goalTitle":"Task title is stored here",
-        "goalDescription":"Task description is stored here",
+        "goalTitle":"Goal title is stored here",
+        "goalDescription":"Goal description is stored here",
         "timeStamp":"Time when goal is added is stored here"}]
     }
 ]

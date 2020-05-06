@@ -119,7 +119,6 @@
     color: rgba(255, 255, 255, 0.92);
     font-family: 'Montserrat-Light';
     max-width: 60%;
-    /* overflow: hidden; */
 }
 #main-display .task-container #tasks-list .single-tasks .options .single-option{
     background-color: #ececec;
@@ -134,7 +133,6 @@
     color: #121212 ;
     transition: 0.5s all;
     font-family: 'Montserrat-Regular';
-
 }
 #main-display .task-container #tasks-list .single-tasks .options .single-option:hover p{
     color: #ececec;
@@ -156,7 +154,7 @@
     transition: 0.5s all;
     overflow: hidden;
     font-family: 'Montserrat-Regular';
-
+    color: #ececec;
 }
 #goals-list h3{
     color: #7E8CE0;
@@ -165,6 +163,7 @@
 }
 #goals-list .single-month:hover{
     background-color: #848cb5;
+    color: #262833;
 }
 .upcoming-goals h2{
     font-family: 'Montserrat-Bold';
@@ -172,7 +171,7 @@
 }
 #single-month-tab{
     position: fixed;
-    background-color: rgba(30, 30, 30, 0.75);
+    background-color: rgba(30, 30, 30, 0.85);
     margin-left: -30px;
     top: 0;
     height: 100vh;
@@ -197,8 +196,54 @@
     background-color: #848cb5 ;
     width: 85%;
     border-radius: 5px;
-
 }
-/* #single-month-tab #goal-info form{
-    border-left: 2px solid black;
-} */
+#single-month-tab #goal-info #goal-month{
+    font-family: 'Montserrat-Bold';
+    font-size: 40px;
+    color: #1D1D1D;
+}
+#single-month-tab #goal-info #g-list{
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+#single-month-tab #goal-info #g-list h3{
+    font-family: 'Montserrat-Regular';
+}
+#single-month-tab #goal-info #g-list .single-goal{
+    background-color: rgba(32, 32, 64,0.80);
+    transition: 0.5s all;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 25px;
+    overflow: hidden;
+}
+#single-month-tab #goal-info #g-list .single-goal h5{
+    color: #ececec;
+    font-family: 'Montserrat-Bold';
+}
+#single-month-tab #goal-info #g-list .single-goal p{
+    font-family: 'Montserrat-Light';
+    color: #FFC68A;
+}
+#single-month-tab #goal-info #g-list .single-goal:hover{
+    background-color: rgba(32, 32, 64,1);
+}
+#single-month-tab #goal-info #g-list .single-goal .options .single-option{
+    background-color: #ececec;
+    border-radius: 5px;
+    transition: 0.5s all;
+    color: #121212 ;
+}
+#single-month-tab #goal-info #g-list .single-goal .options .single-option p{
+    color: #121212 ;
+    transition: 0.5s all;
+    font-family: 'Montserrat-Regular';
+}
+#single-month-tab #goal-info #g-list .single-goal .options .single-option:hover{
+    background-color: #121212 ;
+    color: #ececec ;
+}
+#single-month-tab #goal-info #g-list .single-goal .options .single-option:hover p{
+    color: #ececec ;
+}
+
