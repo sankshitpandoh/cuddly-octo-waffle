@@ -1,25 +1,11 @@
 <div class="row">
-    <div class="col-5">
-        <div class="new-task my-2 py-1 px-3">
-            <h3 class="mb-4">Add a New Task :</h3>
-            <form class="d-flex flex-column" name="add-task" onsubmit=" return sendTask()">
-                <span>Task Title</span>
-                <input class="mb-3" type="text" name="t-title" required/>
-                <span>Description</span>
-                <input class="mb-3" type="text" name="t-description" placeholder="Enter your task details here" required/>
-                <span>Deadline Date</span>
-                <input class="mb-3" type="date" name="t-date" />
-                <span>Deadline Time</span>
-                <input class="mb-3" type="time" name="t-time" />
-                <input class="submit-button p-2" type="submit" value="Add Task">
-            </form>
-
-        </div>
-    </div>
-    <div class="col-7 pl-0">
-        <div class="task-container p-2">
-            <h3 class="mb-4">Your Tasks :</h3>
-        <div id="tasks-list"></div>
+    <div class="col-12">
+        <div class="add-task d-flex flex-column py-3 px-3">
+            <h2 class="mb-2">Add Task:</h2>
+            <span class="d-flex">
+                <input id="task-title" />
+                <input type="submit" class="submit-button ml-3" />
+            </span>
         </div>
     </div>
 </div> 

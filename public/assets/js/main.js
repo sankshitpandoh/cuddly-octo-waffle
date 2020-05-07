@@ -1,11 +1,18 @@
-let userName
-let today //Stores today's date
-let rData
-let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December']
-getUserName()
-startClock()
+//Stores user name
+let userName ;
+
+//Stores today's date
+let today ;
+
+//Contains data called from node server 
+let rData ;
+
+let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
+getUserName();
+startClock();
+
 //Load default content - summary
-loadContent("summary")
+loadContent("tasks")
 
 //Get user name for the user
 function getUserName(){
@@ -61,7 +68,7 @@ function loadContent(id){
         if (this.readyState == 4 && this.status == 200) {
             // console.log("we in")
             document.getElementById("main-display").innerHTML = this.responseText;
-            updateData(id)
+            // updateData(id)
         }
     }
     getData.open("GET", locationData, true);
