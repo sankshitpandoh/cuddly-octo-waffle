@@ -86,25 +86,42 @@
     background-color: #FFC68A;
     color: #1D1D1D;
 }
-/* #main-display .task-container{
-    overflow-y: auto;
-    max-height: 100vh;
-} */
-#main-display .task-container h3{
+#main-display #tasks-list .single-task{
+    background-color: #162447;
+    width: 100%;
+}
+#main-display #tasks-list .single-task h3{
     font-family: 'Montserrat-Bold';
-    color: #A4ADE9;
-    background-color: #121212;
+    color: #ececec;
+    font-size: 23px;
 }
 #main-display .task-container .no-data{
     font-size: 20px;
     color: rgba(255, 255, 255, 0.92);
     /* color: #FFC68A; */
 }
-#main-display .task-container #tasks-list{
+#main-display #tasks-list{
     overflow-y: auto;
-    max-height: 100vh;
+    max-height: 80vh;
+    margin-left: -15px;
+    overflow-x: visible;
 }
-#main-display .task-container #tasks-list .single-tasks{
+
+/* ---------------------------- More Details tab
+------------------------------- */
+#details-tab{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0%;
+    background-color: red;
+    height: 100vh;
+    transition: 0.5s all;
+    box-shadow: 3px 3px 10px 5px #000;
+    /* z-index: 5; */
+}
+
+/* #main-display .task-container #tasks-list .single-tasks{
     background-color: rgba(48, 71, 94,0.70);
     border-radius: 5px;
     color: black;
@@ -116,8 +133,8 @@
 #main-display .task-container #tasks-list .single-tasks:hover{
     background-color: rgba(48, 71, 94,0.95);
 
-}
-#main-display .task-container #tasks-list .single-tasks h4{
+} */
+/* #main-display .task-container #tasks-list .single-tasks h4{
     font-size: 20px;
     font-family: 'Montserrat-Regular';
     color: #FFC68A;
@@ -126,8 +143,8 @@
     color: rgba(255, 255, 255, 0.92);
     font-family: 'Montserrat-Light';
     max-width: 60%;
-}
-#main-display .task-container #tasks-list .single-tasks .options .single-option{
+} */
+/* #main-display .task-container #tasks-list .single-tasks .options .single-option{
     background-color: #ececec;
     border-radius: 5px;
     transition: 0.5s all;
@@ -143,11 +160,11 @@
 }
 #main-display .task-container #tasks-list .single-tasks .options .single-option:hover p{
     color: #ececec;
-}
+} */
 
 /* ---------------------------- Goals tab
 ------------------------------- */
-#goals-list{
+/* #goals-list{
     height: 70vh;
     border-bottom: 4px solid #FFC68A;
     border-radius: 5px;
@@ -252,5 +269,5 @@
 }
 #single-month-tab #goal-info #g-list .single-goal .options .single-option:hover p{
     color: #ececec ;
-}
+} */
 

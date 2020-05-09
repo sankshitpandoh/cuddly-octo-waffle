@@ -114,27 +114,10 @@ function updateData(id){
 // show all tasks
 function updateTasks(rData,id){
     console.log(id +"-list");
+    console.log(rData[2])
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
-        console.log(rData[i]);
-        // document.getElementById(id + '-list').innerHTML += `<div class="single-${id} mb-2 p-1" onclick="expandTask(this)"> 
-        //                                                         <h4>${rData[i].tasksTitle}</h4> 
-        //                                                         <p class="mb-2">${rData[i].tasksDescription}</p>
-        //                                                         <div class="options row">
-        //                                                             <div class="col-3">
-        //                                                                 <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this,${i})">
-        //                                                                     <p>Delete</p>
-        //                                                                     <i class="fa fa-trash"></i>
-        //                                                                 </div>
-        //                                                             </div>
-        //                                                             <div class="col-3">
-        //                                                                 <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this)">
-        //                                                                     <p>Completed</p>
-        //                                                                     <i class="fa fa-check"></i> 
-        //                                                                 </div>    
-        //                                                             </div>
-        //                                                         </div>
-        //                                                     </div>`
+        document.getElementById(id + "-list").innerHTML += `<div class="single-task d-flex my-2" onclick="expandTask(this)"><h3 class="mx-2">${rData[i].tasksTitle} </h3></div>`
     }
 }
 
@@ -142,8 +125,10 @@ function updateTasks(rData,id){
 function sendTask(){
     time = new Date()
     time = Date.parse(time)
+    let tTitle = document.getElementById("task-title").value
+    tTitle = tTitle[0].toUpperCase() + tTitle.slice(1);
     let myTask = {
-        title : document.getElementById("task-title").value,
+        title : tTitle,
         timeStamp: time
     }
     let myJSON = JSON.stringify(myTask);
@@ -165,11 +150,12 @@ function sendTask(){
 
 //Expand a single slected task
 function expandTask(x){
-    let y = document.querySelectorAll(".single-tasks");
-    for(let i = 0 ; i < y.length; i++){
-        y[i].style.maxHeight = `50px`;
-    }
-    x.style.maxHeight = "100%";
+    document.getElementById("details-tab").style.width = "25%";
+    // let y = document.querySelectorAll(".single-task");
+    // for(let i = 0 ; i < y.length; i++){
+    //     y[i].style.maxHeight = `50px`;
+    // }
+    // x.style.maxHeight = "100%";
 }
 
 //Remove the selected task
