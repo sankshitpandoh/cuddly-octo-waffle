@@ -68,7 +68,7 @@ function loadContent(id){
         if (this.readyState == 4 && this.status == 200) {
             // console.log("we in")
             document.getElementById("main-display").innerHTML = this.responseText;
-            // updateData(id)
+            updateData(id)
         }
     }
     getData.open("GET", locationData, true);
@@ -92,14 +92,13 @@ function updateData(id){
                 if(id == "tasks"){
                     updateTasks(rData,id)
                 }
-                else if(id == "summary"){
+                else if(id == "l-priority"){
 
                 }
-                else if(id == "projects"){
+                else if(id == "m-priority"){
 
                 }
-                else if(id == "goals"){
-                    updateGoals(rData,id)
+                else if(id == "h-priority"){
                 }
                 else{
 
@@ -107,33 +106,35 @@ function updateData(id){
             }
         }
     }
-    getData.open("POST", "http://localhost:8000/receiveData", true )
+    getData.open("POST", "http://localhost:8000/receiveData", true );
     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    getData.send((JSON.stringify(identify)))
+    getData.send((JSON.stringify(identify)));
 }
 
 // show all tasks
 function updateTasks(rData,id){
+    console.log(id +"-list");
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
-        document.getElementById(id + '-list').innerHTML += `<div class="single-${id} mb-2 p-1" onclick="expandTask(this)"> 
-                                                                <h4>${rData[i].tasksTitle}</h4> 
-                                                                <p class="mb-2">${rData[i].tasksDescription}</p>
-                                                                <div class="options row">
-                                                                    <div class="col-3">
-                                                                        <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this,${i})">
-                                                                            <p>Delete</p>
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this)">
-                                                                            <p>Completed</p>
-                                                                            <i class="fa fa-check"></i> 
-                                                                        </div>    
-                                                                    </div>
-                                                                </div>
-                                                            </div>`
+        console.log(rData[i]);
+        // document.getElementById(id + '-list').innerHTML += `<div class="single-${id} mb-2 p-1" onclick="expandTask(this)"> 
+        //                                                         <h4>${rData[i].tasksTitle}</h4> 
+        //                                                         <p class="mb-2">${rData[i].tasksDescription}</p>
+        //                                                         <div class="options row">
+        //                                                             <div class="col-3">
+        //                                                                 <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this,${i})">
+        //                                                                     <p>Delete</p>
+        //                                                                     <i class="fa fa-trash"></i>
+        //                                                                 </div>
+        //                                                             </div>
+        //                                                             <div class="col-3">
+        //                                                                 <div class="single-option px-2 d-flex align-items-center justify-content-between" onclick="taskRemove(this)">
+        //                                                                     <p>Completed</p>
+        //                                                                     <i class="fa fa-check"></i> 
+        //                                                                 </div>    
+        //                                                             </div>
+        //                                                         </div>
+        //                                                     </div>`
     }
 }
 
@@ -142,16 +143,13 @@ function sendTask(){
     time = new Date()
     time = Date.parse(time)
     let myTask = {
-        title : document.forms["add-task"]["t-title"].value,
-        description: document.forms["add-task"]["t-description"].value,
-        date: document.forms["add-task"]["t-date"].value,
-        time: document.forms["add-task"]["t-time"].value,
+        title : document.getElementById("task-title").value,
         timeStamp: time
     }
     let myJSON = JSON.stringify(myTask);
     console.log(myJSON);
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/pandoh", true);
+    xhttp.open("POST", "http://localhost:8000/sendtask", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(myJSON);
     xhttp.onreadystatechange = function(){
@@ -161,9 +159,7 @@ function sendTask(){
             updateData("tasks")
         }
     }
-    document.forms["add-task"]["t-title"].value = "";
-    document.forms["add-task"]["t-description"].value ="";
-    document.forms["add-task"]["t-date"].value = "";
+    document.getElementById("task-title").value = "";
     return false;
 }
 

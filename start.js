@@ -15,7 +15,7 @@
     })
 
     //Api called when new task is added
-    app.post("/pandoh", function(req, res){
+    app.post("/sendtask", function(req, res){
         // console.log(req.body.title)
         addTask(req.body)
         res.send("request processed")
@@ -38,7 +38,7 @@
     //Api called to show data in realtion to which tab is opened
     app.post("/receiveData", function(req, res){
         console.log(req.body.id)
-        fs.readFile('./data/' + req.body.id + '.json', function(err, Content){
+        fs.readFile('./data/data.json', function(err, Content){
             // Data not parsing properly, fix this 
             console.log("hi")
             console.log(JSON.parse(Content))
@@ -48,17 +48,14 @@
     function addTask(taskData){
         let task = {
             tasksTitle: taskData.title,
-            tasksDescription : taskData.description,
-            tasksDate : taskData.date,
-            timeStamp : taskData.timeStamp,
             time: taskData.time
         } 
         let data = task
-        fs.readFile('./data/tasks.json', function (err, OldData) {
+        fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray.push(data);
             console.log(JSON.stringify(dataArray))    
-            fs.writeFile("./data/tasks.json", JSON.stringify(dataArray), function(err){
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The task was appended to file!');
             });

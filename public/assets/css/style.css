@@ -82,7 +82,7 @@
     font-weight: 300;
     transition: all 0.5s;
 }
-#main-display .new-task .submit-button:hover{
+#main-display .add-task .submit-button:hover{
     background-color: #FFC68A;
     color: #1D1D1D;
 }
