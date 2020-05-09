@@ -16,24 +16,23 @@
 
     //Api called when new task is added
     app.post("/sendtask", function(req, res){
-        // console.log(req.body.title)
         addTask(req.body)
         res.send("request processed")
     })
 
     //Api called when a task is to be removed
-    app.post("/rmtask", function(req, res){
-        fs.readFile('./data/tasks.json', function (err, OldData) {
-            let dataArray = JSON.parse(OldData);
-            dataArray.splice(req.body.id , 1);
-            console.log(JSON.stringify(dataArray))    
-            fs.writeFile("./data/tasks.json", JSON.stringify(dataArray), function(err){
-              if (err) throw err;
-              console.log('The file was modified');
-            });
-        })
-        res.send("Task deleted")
-    })
+    // app.post("/rmtask", function(req, res){
+    //     fs.readFile('./data/tasks.json', function (err, OldData) {
+    //         let dataArray = JSON.parse(OldData);
+    //         dataArray.splice(req.body.id , 1);
+    //         console.log(JSON.stringify(dataArray))    
+    //         fs.writeFile("./data/tasks.json", JSON.stringify(dataArray), function(err){
+    //           if (err) throw err;
+    //           console.log('The file was modified');
+    //         });
+    //     })
+    //     res.send("Task deleted")
+    // })
 
     //Api called to show data in realtion to which tab is opened
     app.post("/receiveData", function(req, res){
@@ -48,7 +47,11 @@
     function addTask(taskData){
         let task = {
             tasksTitle: taskData.title,
-            time: taskData.time
+            time: taskData.timeStamp,
+            taskDeadline : "",
+            taskPriority : "",
+            taskSubtasks : "",
+            taskDetails : ""
         } 
         let data = task
         fs.readFile('./data/data.json', function (err, OldData) {
@@ -62,3 +65,41 @@
         })
 
     }
+
+
+    //Api called when user adds or changes the deadline date for a single task
+    app.post("/sendDetails", function(req, res){
+        console.log(req.body);
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            dataArray[req.body.trackTask].taskDeadline = req.body.deadLine;
+            dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
+            dataArray[req.body.trackTask].taskPriority = req.body.priority;
+            dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
+            // console.log(dataArray[req.body.trackTask])
+            // dataArray.push(data);
+            console.log(JSON.stringify(dataArray))    
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+              if (err) throw err;
+              console.log('The date was successfully appended to task' + req.body.trackTask);
+            });
+        });
+        res.send("Dead Line date added")
+    });
+
+    //Api called when user adds or changes the deadline date for a single task
+    app.post("/sendSubTask", function(req, res){
+        console.log(req.body);
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            dataArray[req.body.trackTask].taskSubtasks = req.body.subTask;
+            // console.log(dataArray[req.body.trackTask])
+            // dataArray.push(data);
+            console.log(JSON.stringify(dataArray))    
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+              if (err) throw err;
+              console.log('The subTask was successfully appended to task' + req.body.trackTask);
+            });
+        });
+        res.send("Sub task date added")
+    });

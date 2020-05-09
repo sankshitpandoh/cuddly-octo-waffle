@@ -49,8 +49,21 @@
                         <div id="main-display"></div>
                     </div>
                 </div>
-                <div id="details-tab">
-
+                <div id="details-tab" class="d-flex flex-column">
+                    <div id="save-details" onclick="saveDetails()">Save Details</div>
+                    <i class="fa fa-times close-details m-2" onclick="closeTask()"></i>
+                    <h5 class="mx-1 mt-4">Deadline:</h5>
+                    <input type="date" id="deadline-date" class="mx-1 mb-3"/>
+                    <h5 class="mx-1">Sub Tasks:</h5>
+                    <textarea id="sub-tasks" class="mx-1 mb-3"></textarea>
+                    <h5 class="mx-1">Task Priority:</h5>
+                        <select class="mx-1 mb-3" id="prior">
+                            <option value="hp">High Priority</option>
+                            <option value="mp">Medium Priority</option>
+                            <option value="lp">Low Priority</option>
+                        </select>
+                    <h5 class="mx-1">Details:</h5>
+                    <textarea class="mx-1 mb-3" id="details"></textarea>
                 </div>
             </div>
         </div>

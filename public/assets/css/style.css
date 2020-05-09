@@ -86,9 +86,23 @@
     background-color: #FFC68A;
     color: #1D1D1D;
 }
+#main-display #tasks-list{
+    overflow-y: scroll;
+    max-height: 80vh;
+    margin-left: -15px;
+    scrollbar-width: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
 #main-display #tasks-list .single-task{
     background-color: #162447;
     width: 100%;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#main-display #tasks-list .single-task:hover{
+    background-color: #1e305e;
 }
 #main-display #tasks-list .single-task h3{
     font-family: 'Montserrat-Bold';
@@ -100,13 +114,6 @@
     color: rgba(255, 255, 255, 0.92);
     /* color: #FFC68A; */
 }
-#main-display #tasks-list{
-    overflow-y: auto;
-    max-height: 80vh;
-    margin-left: -15px;
-    overflow-x: visible;
-}
-
 /* ---------------------------- More Details tab
 ------------------------------- */
 #details-tab{
@@ -114,11 +121,31 @@
     top: 0;
     right: 0;
     width: 0%;
-    background-color: red;
+    background-color: #FFC68A;
     height: 100vh;
     transition: 0.5s all;
     box-shadow: 3px 3px 10px 5px #000;
-    /* z-index: 5; */
+    overflow: hidden;
+}
+#details-tab #save-details{
+    cursor: pointer;
+    background-color: black;
+    color: #FFC68A;
+    width: 100px;
+}
+#details-tab .close-details{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+#details-tab h5{
+    font-family: 'Montserrat-Bold';
+}
+#details-tab #sub-tasks{
+    height: 200px;
+}
+#details-tab #details{
+    height: 200px;
 }
 
 /* #main-display .task-container #tasks-list .single-tasks{
