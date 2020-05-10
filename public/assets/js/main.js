@@ -13,7 +13,8 @@ let tracker;
 // Keeps a track of tab which is opened to make the functions run accordingly
 let tabTracker;
 
-let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
+let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 getUserName();
 startClock();
 
@@ -94,7 +95,7 @@ function updateData(id){
         if (this.readyState == 4 && this.status == 200) {
             console.log(JSON.parse(this.responseText))
             rData = JSON.parse(this.responseText)
-            if(rData.length < 2 && id != "goals"){
+            if(rData.length < 2){
                 document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
             }
             else{
@@ -111,7 +112,7 @@ function updateData(id){
                     updateHighP()
                 }
                 else{
-                    console.log('crashed')
+                    updateCompTasks()
                 }
             }
         }
@@ -342,6 +343,31 @@ function taskNotCompleted(x){
             updateData(tabTracker) //Update data on the tab that is opened
         }
     }
+}
+
+function updateCompTasks(){
+    console.log(today)
+    let day = today.getDay()
+    // if(days[day] === "Wednesday" || days[day] === "Friday"){
+
+    //     let getData = new XMLHttpRequest();
+    //     getData.onreadystatechange = function(){
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             console.log(JSON.parse(this.responseText))
+    //             let compData = JSON.parse(this.responseText)
+    //             // if(compData.length < 2){
+    //             //     document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
+    //             // }
+    //             // else{
+
+    //             // }
+    //         }
+    //     }
+    //     getData.open("GET", "http://localhost:8000/receiveCompData", true );
+    //     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
+
+    // }
+    
 }
 
 //Remove the selected task

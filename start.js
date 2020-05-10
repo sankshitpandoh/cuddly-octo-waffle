@@ -19,7 +19,29 @@
         addTask(req.body)
         res.send("request processed")
     })
+    // Function called when a new task is added
+    function addTask(taskData){
+        let task = {
+            tasksTitle: taskData.title,
+            time: taskData.timeStamp,
+            taskDeadline : "",
+            taskPriority : "",
+            taskSubtasks : "",
+            taskDetails : "",
+            completed : 0
+        } 
+        let data = task
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            dataArray.push(data);
+            console.log(JSON.stringify(dataArray))    
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+              if (err) throw err;
+              console.log('The task was appended to file!');
+            });
+        })
 
+    }
     //Api called when a task is to be removed
     // app.post("/rmtask", function(req, res){
     //     fs.readFile('./data/tasks.json', function (err, OldData) {
@@ -44,29 +66,6 @@
             res.json(JSON.parse(Content))
         })
     })
-    function addTask(taskData){
-        let task = {
-            tasksTitle: taskData.title,
-            time: taskData.timeStamp,
-            taskDeadline : "",
-            taskPriority : "",
-            taskSubtasks : "",
-            taskDetails : "",
-            completed : 0
-        } 
-        let data = task
-        fs.readFile('./data/data.json', function (err, OldData) {
-            let dataArray = JSON.parse(OldData);
-            dataArray.push(data);
-            console.log(JSON.stringify(dataArray))    
-            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
-              if (err) throw err;
-              console.log('The task was appended to file!');
-            });
-        })
-
-    }
-
 
     //Api called when user adds or changes the details for a single task
     app.post("/sendDetails", function(req, res){
@@ -109,8 +108,6 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.id].completed = 0;
-            // console.log(dataArray[req.body.trackTask])
-            // dataArray.push(data);
             console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
@@ -119,3 +116,39 @@
         });
         res.send("Data Updated")
     })
+
+
+    // To shift data from data.json to completedtasks.json but only on wednesday and Friday (acts as a cronjob)
+    let today = new Date();
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let day = today.getDay();
+    let compArray = [];
+    if(days[day] === "Wednesday" || days[day] === "Friday"){
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            for(let i = (dataArray.length - 1); i > 0 ; i--){
+                if(dataArray[i].completed === 1){
+                    compArray.push(dataArray[i])
+                    dataArray.splice(i,1)
+                }
+            }
+        console.log(dataArray)
+            fs.readFile('./data/completedTask.json', function (err, OldData) {
+                let cData = JSON.parse(OldData);
+                for(let i = 0; i < compArray.length; i++){
+                    cData.push(compArray[i])
+                }
+                fs.writeFile("./data/completedTask.json", JSON.stringify(cData), function(err){
+                if (err) throw err;
+                console.log('Completed tasks were sucessfully appeneded to completed data file');
+                });
+            });
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+                if (err) throw err;
+                console.log('Completed tasks were sucessfully removed from main data file');
+                });
+        });
+    }
+    else{
+        console.log('wow')
+    }
