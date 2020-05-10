@@ -354,8 +354,10 @@ function updateCompTasks(){
 //Remove the selected task
 function deleteTask(x){
     console.log(x.id)
+    let iden = (x.id).substring(4, x.id.length)
+    console.log(iden)
     let identify ={
-        id : x.id
+        id : iden
     }
     let xhttp = new XMLHttpRequest();
     xhttp.open("POST" , "http://localhost:8000/rmtask" , true);

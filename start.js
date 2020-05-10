@@ -48,14 +48,15 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray.splice(req.body.id , 1);
+            console.log(req.body.id)
             console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The file was modified');
             });
-        })
-        res.send("Task deleted")
-    })
+        });
+        res.send("Task deleted");
+    });
 
     //Api called to show data in realtion to which tab is opened
     app.post("/receiveData", function(req, res){
