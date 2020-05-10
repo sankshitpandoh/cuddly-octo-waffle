@@ -3,7 +3,13 @@
     height: 100vh;
     overflow: hidden;
 }
-
+.completed-task{
+    text-decoration: line-through;
+    text-decoration-thickness: 4px;
+    text-decoration-color: red;
+    font-family: 'Montserrat-Bold';
+    color: black;
+}
 /* ------------------------- Left Navigation Bar starts here 
 ---------------------------- */
 .main-nav{
@@ -104,6 +110,14 @@
 #main-display #tasks-list .single-task:hover{
     background-color: #1e305e;
 }
+#main-display #tasks-list .completed{
+    background-color: black;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#main-display #tasks-list .completed:hover{
+    background-color: red;
+}
 #main-display #tasks-list .single-task h3{
     font-family: 'Montserrat-Bold';
     color: #ececec;
@@ -127,6 +141,14 @@
     margin-left: -15px;
     scrollbar-width: none;
 }
+#main-display #High-p-tasks .completed{
+    background-color: black;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#main-display #High-p-tasks .completed:hover{
+    background-color: red;
+}
 #main-display #High-p-tasks .single-H-task{
     background-color: red;
     transition: 0.5s all;
@@ -144,6 +166,14 @@
     margin-left: -15px;
     scrollbar-width: none;
 }
+#main-display #Medium-p-tasks .completed{
+    background-color: black;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#main-display #Medium-p-tasks .completed:hover{
+    background-color: red;
+}
 #main-display #Medium-p-tasks .single-M-task{
     background-color: red;
     transition: 0.5s all;
@@ -160,6 +190,14 @@
     max-height: 80vh;
     margin-left: -15px;
     scrollbar-width: none;
+}
+#main-display #Low-p-tasks .completed{
+    background-color: black;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#main-display #Low-p-tasks .completed:hover{
+    background-color: red;
 }
 #main-display #Low-p-tasks .single-L-task{
     background-color: red;

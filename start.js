@@ -51,7 +51,8 @@
             taskDeadline : "",
             taskPriority : "",
             taskSubtasks : "",
-            taskDetails : ""
+            taskDetails : "",
+            completed : 0
         } 
         let data = task
         fs.readFile('./data/data.json', function (err, OldData) {
@@ -67,7 +68,7 @@
     }
 
 
-    //Api called when user adds or changes the deadline date for a single task
+    //Api called when user adds or changes the details for a single task
     app.post("/sendDetails", function(req, res){
         console.log(req.body);
         fs.readFile('./data/data.json', function (err, OldData) {
@@ -81,25 +82,41 @@
             console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
-              console.log('The date was successfully appended to task' + req.body.trackTask);
+              console.log('The details were successfully appended to task' + req.body.trackTask);
             });
         });
-        res.send("Dead Line date added")
+        res.send("Details added")
     });
 
-    //Api called when user adds or changes the deadline date for a single task
-    app.post("/sendSubTask", function(req, res){
-        console.log(req.body);
+    // //Api called when user adds or changes the deadline date for a single task
+    // app.post("/sendSubTask", function(req, res){
+    //     console.log(req.body);
+    //     fs.readFile('./data/data.json', function (err, OldData) {
+    //         let dataArray = JSON.parse(OldData);
+    //         dataArray[req.body.trackTask].taskSubtasks = req.body.subTask;
+    //         // console.log(dataArray[req.body.trackTask])
+    //         // dataArray.push(data);
+    //         console.log(JSON.stringify(dataArray))    
+    //         fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+    //           if (err) throw err;
+    //           console.log('The subTask was successfully appended to task' + req.body.trackTask);
+    //         });
+    //     });
+    //     res.send("Sub task date added")
+    // });
+
+
+    app.post("/completed", function(req, res){
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
-            dataArray[req.body.trackTask].taskSubtasks = req.body.subTask;
+            dataArray[req.body.id].completed = 1;
             // console.log(dataArray[req.body.trackTask])
             // dataArray.push(data);
             console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
-              console.log('The subTask was successfully appended to task' + req.body.trackTask);
+              console.log('The completion of task wassuccessfully updated' + req.body.trackTask);
             });
         });
-        res.send("Sub task date added")
-    });
+        res.send("Data Updated")
+    })
