@@ -88,24 +88,7 @@
         res.send("Details added")
     });
 
-    // //Api called when user adds or changes the deadline date for a single task
-    // app.post("/sendSubTask", function(req, res){
-    //     console.log(req.body);
-    //     fs.readFile('./data/data.json', function (err, OldData) {
-    //         let dataArray = JSON.parse(OldData);
-    //         dataArray[req.body.trackTask].taskSubtasks = req.body.subTask;
-    //         // console.log(dataArray[req.body.trackTask])
-    //         // dataArray.push(data);
-    //         console.log(JSON.stringify(dataArray))    
-    //         fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
-    //           if (err) throw err;
-    //           console.log('The subTask was successfully appended to task' + req.body.trackTask);
-    //         });
-    //     });
-    //     res.send("Sub task date added")
-    // });
-
-
+    // API called when the user completes a task
     app.post("/completed", function(req, res){
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
@@ -115,7 +98,23 @@
             console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
-              console.log('The completion of task wassuccessfully updated' + req.body.trackTask);
+              console.log('The completion of task was successfully updated' + req.body.trackTask);
+            });
+        });
+        res.send("Data Updated")
+    })
+
+    // API called when the user unchecks a completed task
+    app.post("/notCompleted", function(req, res){
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            dataArray[req.body.id].completed = 0;
+            // console.log(dataArray[req.body.trackTask])
+            // dataArray.push(data);
+            console.log(JSON.stringify(dataArray))    
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+              if (err) throw err;
+              console.log('The completion of task was successfully updated' + req.body.trackTask);
             });
         });
         res.send("Data Updated")

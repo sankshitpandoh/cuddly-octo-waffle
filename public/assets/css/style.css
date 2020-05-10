@@ -6,9 +6,8 @@
 .completed-task{
     text-decoration: line-through;
     text-decoration-thickness: 4px;
-    text-decoration-color: red;
+    text-decoration-color: black;
     font-family: 'Montserrat-Bold';
-    color: black;
 }
 /* ------------------------- Left Navigation Bar starts here 
 ---------------------------- */
@@ -111,12 +110,20 @@
     background-color: #1e305e;
 }
 #main-display #tasks-list .completed{
+    color: white;
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
 }
 #main-display #tasks-list .completed:hover{
-    background-color: red;
+    background-color: white;
+    color: black;
+}
+#main-display #tasks-list .yes-completed{
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.5s all;
 }
 #main-display #tasks-list .single-task h3{
     font-family: 'Montserrat-Bold';
@@ -142,12 +149,20 @@
     scrollbar-width: none;
 }
 #main-display #High-p-tasks .completed{
+    color: white;
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
 }
 #main-display #High-p-tasks .completed:hover{
-    background-color: red;
+    background-color: white;
+    color: black;
+}
+#main-display #High-p-tasks .yes-completed{
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.5s all;
 }
 #main-display #High-p-tasks .single-H-task{
     background-color: red;
@@ -167,12 +182,20 @@
     scrollbar-width: none;
 }
 #main-display #Medium-p-tasks .completed{
+    color: white;
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
 }
 #main-display #Medium-p-tasks .completed:hover{
-    background-color: red;
+    background-color: white;
+    color: black;
+}
+#main-display #Medium-p-tasks .yes-completed{
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.5s all;
 }
 #main-display #Medium-p-tasks .single-M-task{
     background-color: red;
@@ -192,12 +215,20 @@
     scrollbar-width: none;
 }
 #main-display #Low-p-tasks .completed{
+    color: white;
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
 }
 #main-display #Low-p-tasks .completed:hover{
-    background-color: red;
+    background-color: white;
+    color: black;
+}
+#main-display #Low-p-tasks .yes-completed{
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.5s all;
 }
 #main-display #Low-p-tasks .single-L-task{
     background-color: red;
