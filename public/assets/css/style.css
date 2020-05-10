@@ -9,6 +9,16 @@
     text-decoration-color: black;
     font-family: 'Montserrat-Bold';
 }
+.del-task{
+    background-color: black;
+    cursor: pointer;
+    transition: 0.5s all;
+    color: white;
+}
+.del-task:hover{
+    background-color: white;
+    color: black;
+}
 /* ------------------------- Left Navigation Bar starts here 
 ---------------------------- */
 .main-nav{
@@ -278,31 +288,73 @@
     top: 0;
     right: 0;
     width: 0%;
-    background-color: #FFC68A;
+    background-color: #23103a;
     height: 100vh;
     transition: 0.5s all;
     box-shadow: 3px 3px 10px 5px #000;
     overflow: hidden;
 }
+#details-tab h5{
+    color: #fff;
+    text-decoration: underline;
+}
 #details-tab #save-details{
     cursor: pointer;
     background-color: black;
     color: #FFC68A;
-    width: 100px;
+    transition: 0.5s all;
+    border: 2px solid white;
+    width: 120px;
+    font-family: 'Montserrat-Regular';
+    box-shadow: 0px 0px 14px 2px #000;
+    border-radius: 6px;
+}
+#details-tab #save-details:hover{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
 }
 #details-tab .close-details{
     position: absolute;
     right: 0;
     cursor: pointer;
+    transition: 0.5s all;
+    color: #FFC68A;
+}
+#details-tab #deadline-date{
+    border: 0;
+    background-color: #23103A ;
+    color: white;
+    border-bottom: 2px solid #FFC68A;
+}
+#details-tab #sub-tasks{
+    background-color: #FFC68A;
+    border: 0;
+}
+#details-tab #details{
+    background-color: #FFC68A;
+    border: 0;
+    padding: 5px;
+}
+#details-tab .close-details:hover{
+    color: #fff;
 }
 #details-tab h5{
     font-family: 'Montserrat-Bold';
 }
 #details-tab #sub-tasks{
     height: 200px;
+    padding: 5px;
+}
+#details-tab #prior{
+    background-color: #23103A ;
+    border: 0;
+    border-bottom: 2px solid #ff6c00;
+    color: #FFC68A;
 }
 #details-tab #details{
     height: 20%;
+    height: 200px;
 }
 
 

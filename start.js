@@ -42,19 +42,20 @@
         })
 
     }
+
     //Api called when a task is to be removed
-    // app.post("/rmtask", function(req, res){
-    //     fs.readFile('./data/tasks.json', function (err, OldData) {
-    //         let dataArray = JSON.parse(OldData);
-    //         dataArray.splice(req.body.id , 1);
-    //         console.log(JSON.stringify(dataArray))    
-    //         fs.writeFile("./data/tasks.json", JSON.stringify(dataArray), function(err){
-    //           if (err) throw err;
-    //           console.log('The file was modified');
-    //         });
-    //     })
-    //     res.send("Task deleted")
-    // })
+    app.post("/rmtask", function(req, res){
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            dataArray.splice(req.body.id , 1);
+            console.log(JSON.stringify(dataArray))    
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+              if (err) throw err;
+              console.log('The file was modified');
+            });
+        })
+        res.send("Task deleted")
+    })
 
     //Api called to show data in realtion to which tab is opened
     app.post("/receiveData", function(req, res){
