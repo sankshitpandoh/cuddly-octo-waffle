@@ -7,6 +7,8 @@ let today ;
 //Contains data called from node server 
 let rData ;
 
+// Keeps a track of which task are we working on
+let tracker;
 let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
 getUserName();
 startClock();
@@ -69,6 +71,9 @@ function loadContent(id){
             // console.log("we in")
             document.getElementById("main-display").innerHTML = this.responseText;
             updateData(id)
+        
+            // Close details tab if left opened
+            closeTask()
         }
     }
     getData.open("GET", locationData, true);
@@ -93,12 +98,13 @@ function updateData(id){
                     updateTasks(rData,id)
                 }
                 else if(id == "l-priority"){
-
+                    updateLowP()
                 }
                 else if(id == "m-priority"){
-
+                    updateMediumP()
                 }
                 else if(id == "h-priority"){
+                    updateHighP()
                 }
                 else{
 
@@ -160,7 +166,6 @@ function expandTask(x){
     // }
     // x.style.maxHeight = "100%";
 }
-let tracker
 function displayTaskDetails(x){
     console.log(rData)
     let taskNumber = x.substring(5,(x.length));
@@ -194,6 +199,7 @@ function saveDetails(){
             // If the date is successfully sent to server, update on console
             console.log('Task details sent to server')
             updateData("tasks")
+            closeTask()
         }
     }
 }
@@ -201,31 +207,60 @@ function saveDetails(){
 //Expand details for single task
 function closeTask(){
     document.getElementById("details-tab").style.width = "0%";
-    // document.getElementById("deadline-date").value = "";
-    // document.getElementById("sub-tasks").value = "";
-    // document.getElementById("prior").value = "";
-    // document.getElementById("details").value = "";
 }
 
-function sendSubTask(x){
-    let subTask = {
-        subTask : x,
-        trackTask : tracker //tracker keeps a track of which task is currently going on and needs to be updated
-    }
-    console.log(subTask)
-    subTask = JSON.stringify(subTask);
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/sendSubTask", true);
-    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    xhttp.send(subTask);
-    xhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) {
-            // If the date is successfully sent to server, update on console
-            console.log('Sub Tasks successfully sent to server')
-            updateData("tasks")
+//Update High Priority tasks when opened
+function updateHighP(){
+    let hPrior = []
+    // Loop through all tasks to find all tasks with high priority
+    for(let i = 1; i < rData.length; i++){
+        if(rData[i].taskPriority === "hp"){
+            hPrior.push(rData[i])
         }
     }
+    console.log(hPrior)
 }
+
+function updateMediumP(){
+    let mPrior = []
+    // Loop through all tasks to find all tasks with medium priority
+    for(let i = 1; i < rData.length; i++){
+        if(rData[i].taskPriority === "mp"){
+            mPrior.push(rData[i])
+        }
+    }
+    console.log(mPrior)
+}
+
+function updateLowP(){
+    let lPrior = []
+    // Loop through all tasks to find all tasks with low priority
+    for(let i = 1; i < rData.length; i++){
+        if(rData[i].taskPriority === "lp"){
+            lPrior.push(rData[i])
+        }
+    }
+    console.log(lPrior)
+}
+// function sendSubTask(x){
+//     let subTask = {
+//         subTask : x,
+//         trackTask : tracker //tracker keeps a track of which task is currently going on and needs to be updated
+//     }
+//     console.log(subTask)
+//     subTask = JSON.stringify(subTask);
+//     let xhttp = new XMLHttpRequest();
+//     xhttp.open("POST", "http://localhost:8000/sendSubTask", true);
+//     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+//     xhttp.send(subTask);
+//     xhttp.onreadystatechange = function(){
+//         if (this.readyState == 4 && this.status == 200) {
+//             // If the date is successfully sent to server, update on console
+//             console.log('Sub Tasks successfully sent to server')
+//             updateData("tasks")
+//         }
+//     }
+// }
 
 //Remove the selected task
 // function taskRemove(x,i){
