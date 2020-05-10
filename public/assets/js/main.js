@@ -9,6 +9,9 @@ let rData ;
 
 // Keeps a track of which task are we working on
 let tracker;
+
+let tabTracker;
+
 let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
 getUserName();
 startClock();
@@ -71,7 +74,7 @@ function loadContent(id){
             // console.log("we in")
             document.getElementById("main-display").innerHTML = this.responseText;
             updateData(id)
-        
+            tabTracker = id 
             // Close details tab if left opened
             closeTask()
         }
@@ -107,7 +110,7 @@ function updateData(id){
                     updateHighP()
                 }
                 else{
-
+                    console.log('crashed')
                 }
             }
         }
@@ -198,7 +201,7 @@ function saveDetails(){
         if (this.readyState == 4 && this.status == 200) {
             // If the date is successfully sent to server, update on console
             console.log('Task details sent to server')
-            updateData("tasks")
+            updateData(tabTracker) //Update data on the tab that is opened
             closeTask()
         }
     }
@@ -211,14 +214,23 @@ function closeTask(){
 
 //Update High Priority tasks when opened
 function updateHighP(){
-    let hPrior = []
+    let hPrior = [];
+    let hTracker = []; // Keeps a track of tasks in sync with server to allow changes or etc
     // Loop through all tasks to find all tasks with high priority
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "hp"){
             hPrior.push(rData[i])
+            hTracker.push(i)
         }
     }
-    console.log(hPrior)
+    
+    // CLearing previous all tasks
+    document.getElementById("High-p-tasks").innerHTML = ""
+
+    // Displaying high priority tasks
+    for(let i = 0; i < hPrior.length; i++){
+        document.getElementById("High-p-tasks").innerHTML += `<div class="single-H-task d-flex my-2" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${hPrior[i].tasksTitle} </h3></div>`
+    }
 }
 
 function updateMediumP(){

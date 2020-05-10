@@ -114,6 +114,27 @@
     color: rgba(255, 255, 255, 0.92);
     /* color: #FFC68A; */
 }
+
+/* ---------------------------- High Priority tab
+------------------------------- */
+#main-display .heading{
+    color: rgba(255, 255, 255, 0.92);
+    font-family: 'Montserrat-Bold';
+}
+#main-display #High-p-tasks{
+    overflow-y: scroll;
+    max-height: 80vh;
+    margin-left: -15px;
+    scrollbar-width: none;
+}
+#main-display #High-p-tasks .single-H-task{
+    background-color: red;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+#main-display #High-p-tasks .single-H-task h3{
+    font-family: 'Montserrat-Bold';
+}
 /* ---------------------------- More Details tab
 ------------------------------- */
 #details-tab{
