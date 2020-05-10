@@ -10,6 +10,7 @@ let rData ;
 // Keeps a track of which task are we working on
 let tracker;
 
+// Keeps a track of tab which is opened to make the functions run accordingly
 let tabTracker;
 
 let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November','December'];
@@ -215,12 +216,12 @@ function closeTask(){
 //Update High Priority tasks when opened
 function updateHighP(){
     let hPrior = [];
-    let hTracker = []; // Keeps a track of tasks in sync with server to allow changes or etc
+    let hTracker = []; // Keeps a track of high prior tasks in sync with server to allow changes or etc
     // Loop through all tasks to find all tasks with high priority
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "hp"){
-            hPrior.push(rData[i])
-            hTracker.push(i)
+            hPrior.push(rData[i]);
+            hTracker.push(i);
         }
     }
     
@@ -233,46 +234,47 @@ function updateHighP(){
     }
 }
 
+//Update Medium Priority tasks when opened
 function updateMediumP(){
-    let mPrior = []
+    let mPrior = [];
+    let mTracker = []; // Keeps a track of medium prior tasks in sync with server to allow changes or etc
     // Loop through all tasks to find all tasks with medium priority
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "mp"){
-            mPrior.push(rData[i])
+            mPrior.push(rData[i]);
+            mTracker.push(i);
         }
     }
-    console.log(mPrior)
+
+    // CLearing previous all tasks
+    document.getElementById("Medium-p-tasks").innerHTML = ""
+
+    // Displaying high priority tasks
+    for(let i = 0; i < mPrior.length; i++){
+        document.getElementById("Medium-p-tasks").innerHTML += `<div class="single-M-task d-flex my-2" id="task-${mTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${mPrior[i].tasksTitle} </h3></div>`
+    }
 }
 
+//Update Low Priority tasks when opened
 function updateLowP(){
-    let lPrior = []
+    let lPrior = [];
+    let lTracker = []; // Keeps a track of low prior tasks in sync with server to allow changes or etc
     // Loop through all tasks to find all tasks with low priority
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "lp"){
-            lPrior.push(rData[i])
+            lPrior.push(rData[i]);
+            lTracker.push(i);
         }
     }
-    console.log(lPrior)
+    
+    // CLearing previous all tasks
+    document.getElementById("Low-p-tasks").innerHTML = ""
+
+    // Displaying high priority tasks
+    for(let i = 0; i < lPrior.length; i++){
+        document.getElementById("Low-p-tasks").innerHTML += `<div class="single-L-task d-flex my-2" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${lPrior[i].tasksTitle} </h3></div>`
+    }
 }
-// function sendSubTask(x){
-//     let subTask = {
-//         subTask : x,
-//         trackTask : tracker //tracker keeps a track of which task is currently going on and needs to be updated
-//     }
-//     console.log(subTask)
-//     subTask = JSON.stringify(subTask);
-//     let xhttp = new XMLHttpRequest();
-//     xhttp.open("POST", "http://localhost:8000/sendSubTask", true);
-//     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
-//     xhttp.send(subTask);
-//     xhttp.onreadystatechange = function(){
-//         if (this.readyState == 4 && this.status == 200) {
-//             // If the date is successfully sent to server, update on console
-//             console.log('Sub Tasks successfully sent to server')
-//             updateData("tasks")
-//         }
-//     }
-// }
 
 //Remove the selected task
 // function taskRemove(x,i){

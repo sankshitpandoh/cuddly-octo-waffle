@@ -135,6 +135,41 @@
 #main-display #High-p-tasks .single-H-task h3{
     font-family: 'Montserrat-Bold';
 }
+
+/* ---------------------------- Medium Priority tab
+------------------------------- */
+#main-display #Medium-p-tasks{
+    overflow-y: scroll;
+    max-height: 80vh;
+    margin-left: -15px;
+    scrollbar-width: none;
+}
+#main-display #Medium-p-tasks .single-M-task{
+    background-color: red;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+#main-display #Medium-p-tasks .single-M-task h3{
+    font-family: 'Montserrat-Bold';
+}
+
+/* ---------------------------- Low Priority tab
+------------------------------- */
+#main-display #Low-p-tasks{
+    overflow-y: scroll;
+    max-height: 80vh;
+    margin-left: -15px;
+    scrollbar-width: none;
+}
+#main-display #Low-p-tasks .single-L-task{
+    background-color: red;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+#main-display #Low-p-tasks .single-L-task h3{
+    font-family: 'Montserrat-Bold';
+}
+
 /* ---------------------------- More Details tab
 ------------------------------- */
 #details-tab{
