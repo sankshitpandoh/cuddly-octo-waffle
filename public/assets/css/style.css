@@ -144,7 +144,7 @@
 }
 #main-display #High-p-tasks{
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 90vh;
     margin-left: -15px;
     scrollbar-width: none;
 }
@@ -165,19 +165,24 @@
     transition: 0.5s all;
 }
 #main-display #High-p-tasks .single-H-task{
-    background-color: red;
+    background-color: #ee4540;
     transition: 0.5s all;
     cursor: pointer;
+    width: 100%;
+}
+#main-display #High-p-tasks .single-H-task:hover{
+    background-color: #ff5c57;
 }
 #main-display #High-p-tasks .single-H-task h3{
     font-family: 'Montserrat-Bold';
+    color: black;
 }
 
 /* ---------------------------- Medium Priority tab
 ------------------------------- */
 #main-display #Medium-p-tasks{
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 90vh;
     margin-left: -15px;
     scrollbar-width: none;
 }
@@ -198,19 +203,24 @@
     transition: 0.5s all;
 }
 #main-display #Medium-p-tasks .single-M-task{
-    background-color: red;
+    background-color: #c72c41;
     transition: 0.5s all;
     cursor: pointer;
+    width: 100%;
+}
+#main-display #Medium-p-tasks .single-M-task:hover{
+    background-color: #EE4540;
 }
 #main-display #Medium-p-tasks .single-M-task h3{
     font-family: 'Montserrat-Bold';
+    color: black;
 }
 
 /* ---------------------------- Low Priority tab
 ------------------------------- */
 #main-display #Low-p-tasks{
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 90vh;
     margin-left: -15px;
     scrollbar-width: none;
 }
@@ -231,12 +241,34 @@
     transition: 0.5s all;
 }
 #main-display #Low-p-tasks .single-L-task{
-    background-color: red;
+    background-color: #801336;
     transition: 0.5s all;
     cursor: pointer;
+    width: 100%;
+}
+#main-display #Low-p-tasks .single-L-task:hover{
+    background-color: #c72c41;
 }
 #main-display #Low-p-tasks .single-L-task h3{
     font-family: 'Montserrat-Bold';
+    color: black;
+}
+
+/* ---------------------------- Completed tasks tab
+------------------------------- */
+#main-display #comp-tasks h4{
+    color: #1e305e;
+}
+#main-display #comp-tasks .single-comp-task{
+    background-color: #29c7ac;
+    cursor: pointer;
+}
+#main-display #comp-tasks .single-comp-task h3{
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: white;
+    font-family: 'Montserrat-Bold';
+    color: #202040;
 }
 
 /* ---------------------------- More Details tab
@@ -273,153 +305,4 @@
     height: 20%;
 }
 
-/* #main-display .task-container #tasks-list .single-tasks{
-    background-color: rgba(48, 71, 94,0.70);
-    border-radius: 5px;
-    color: black;
-    cursor: pointer;
-    transition: all 0.5s;
-    max-height: 50px;
-    overflow: hidden;
-}
-#main-display .task-container #tasks-list .single-tasks:hover{
-    background-color: rgba(48, 71, 94,0.95);
-
-} */
-/* #main-display .task-container #tasks-list .single-tasks h4{
-    font-size: 20px;
-    font-family: 'Montserrat-Regular';
-    color: #FFC68A;
-}
-#main-display .task-container #tasks-list .single-tasks p{
-    color: rgba(255, 255, 255, 0.92);
-    font-family: 'Montserrat-Light';
-    max-width: 60%;
-} */
-/* #main-display .task-container #tasks-list .single-tasks .options .single-option{
-    background-color: #ececec;
-    border-radius: 5px;
-    transition: 0.5s all;
-}
-#main-display .task-container #tasks-list .single-tasks .options .single-option:hover{
-    background-color: #121212;
-    color: #ececec;
-}
-#main-display .task-container #tasks-list .single-tasks .options .single-option p{
-    color: #121212 ;
-    transition: 0.5s all;
-    font-family: 'Montserrat-Regular';
-}
-#main-display .task-container #tasks-list .single-tasks .options .single-option:hover p{
-    color: #ececec;
-} */
-
-/* ---------------------------- Goals tab
-------------------------------- */
-/* #goals-list{
-    height: 70vh;
-    border-bottom: 4px solid #FFC68A;
-    border-radius: 5px;
-    overflow-y: scroll;
-}
-#goals-list .single-month{
-    height: 250px;
-    background-color: #262833;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.5s all;
-    overflow: hidden;
-    font-family: 'Montserrat-Regular';
-    color: #ececec;
-}
-#goals-list h3{
-    color: #7E8CE0;
-    transition: 0.5s all;
-    font-family: 'Montserrat-Bold';
-}
-#goals-list .single-month:hover{
-    background-color: #848cb5;
-    color: #262833;
-}
-.upcoming-goals h2{
-    font-family: 'Montserrat-Bold';
-    color: #ececec;
-}
-#single-month-tab{
-    position: fixed;
-    background-color: rgba(30, 30, 30, 0.85);
-    margin-left: -30px;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    display: none;
-}
-#single-month-tab .close-tab{
-    position: fixed;
-    top: 0;
-    right: 25px;
-    font-size: 25px;
-    cursor: pointer;
-    color: #ececec;
-    transition: 0.5s all;
-}
-#single-month-tab .close-tab:hover{
-    color: #adadad;
-}
-#single-month-tab #goal-info{
-    min-height: 50vh;
-    max-height: 80vh;
-    background-color: #848cb5 ;
-    width: 85%;
-    border-radius: 5px;
-}
-#single-month-tab #goal-info #goal-month{
-    font-family: 'Montserrat-Bold';
-    font-size: 40px;
-    color: #1D1D1D;
-}
-#single-month-tab #goal-info #g-list{
-    max-height: 70vh;
-    overflow-y: scroll;
-}
-#single-month-tab #goal-info #g-list h3{
-    font-family: 'Montserrat-Regular';
-}
-#single-month-tab #goal-info #g-list .single-goal{
-    background-color: rgba(32, 32, 64,0.80);
-    transition: 0.5s all;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 25px;
-    overflow: hidden;
-}
-#single-month-tab #goal-info #g-list .single-goal h5{
-    color: #ececec;
-    font-family: 'Montserrat-Bold';
-}
-#single-month-tab #goal-info #g-list .single-goal p{
-    font-family: 'Montserrat-Light';
-    color: #FFC68A;
-}
-#single-month-tab #goal-info #g-list .single-goal:hover{
-    background-color: rgba(32, 32, 64,1);
-}
-#single-month-tab #goal-info #g-list .single-goal .options .single-option{
-    background-color: #ececec;
-    border-radius: 5px;
-    transition: 0.5s all;
-    color: #121212 ;
-}
-#single-month-tab #goal-info #g-list .single-goal .options .single-option p{
-    color: #121212 ;
-    transition: 0.5s all;
-    font-family: 'Montserrat-Regular';
-}
-#single-month-tab #goal-info #g-list .single-goal .options .single-option:hover{
-    background-color: #121212 ;
-    color: #ececec ;
-}
-#single-month-tab #goal-info #g-list .single-goal .options .single-option:hover p{
-    color: #ececec ;
-} */
 

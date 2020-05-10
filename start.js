@@ -34,7 +34,7 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray.push(data);
-            console.log(JSON.stringify(dataArray))    
+            // console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The task was appended to file!');
@@ -59,12 +59,21 @@
     //Api called to show data in realtion to which tab is opened
     app.post("/receiveData", function(req, res){
         console.log(req.body.id)
-        fs.readFile('./data/data.json', function(err, Content){
-            // Data not parsing properly, fix this 
-            console.log("hi")
-            console.log(JSON.parse(Content))
-            res.json(JSON.parse(Content))
-        })
+        if(req.body.id === "compTasks"){
+            fs.readFile('./data/completedTask.json', function(err, Content){
+                // Data not parsing properly, fix this 
+                console.log(JSON.parse(Content))
+                res.json(JSON.parse(Content))
+            });
+        }
+        else{
+            fs.readFile('./data/data.json', function(err, Content){
+                // Data not parsing properly, fix this 
+                console.log("hi")
+                console.log(JSON.parse(Content))
+                res.json(JSON.parse(Content))
+            });
+        }
     })
 
     //Api called when user adds or changes the details for a single task
@@ -76,9 +85,7 @@
             dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
             dataArray[req.body.trackTask].taskPriority = req.body.priority;
             dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
-            // console.log(dataArray[req.body.trackTask])
-            // dataArray.push(data);
-            console.log(JSON.stringify(dataArray))    
+            console.log(JSON.stringify(dataArray));
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The details were successfully appended to task' + req.body.trackTask);
@@ -149,6 +156,5 @@
                 });
         });
     }
-    else{
-        console.log('wow')
-    }
+
+

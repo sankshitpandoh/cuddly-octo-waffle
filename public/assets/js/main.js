@@ -95,7 +95,7 @@ function updateData(id){
         if (this.readyState == 4 && this.status == 200) {
             console.log(JSON.parse(this.responseText))
             rData = JSON.parse(this.responseText)
-            if(rData.length < 2){
+            if(rData.length < 2 && id == "tasks"){
                 document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
             }
             else{
@@ -170,11 +170,6 @@ function expandTask(x){
     console.log(x.id);
     displayTaskDetails(x.id);
     document.getElementById("details-tab").style.width = "25%";
-    // let y = document.querySelectorAll(".single-task");
-    // for(let i = 0 ; i < y.length; i++){
-    //     y[i].style.maxHeight = `50px`;
-    // }
-    // x.style.maxHeight = "100%";
 }
 
 // Fetching Task Details from server
@@ -346,28 +341,16 @@ function taskNotCompleted(x){
 }
 
 function updateCompTasks(){
-    console.log(today)
-    let day = today.getDay()
-    // if(days[day] === "Wednesday" || days[day] === "Friday"){
-
-    //     let getData = new XMLHttpRequest();
-    //     getData.onreadystatechange = function(){
-    //         if (this.readyState == 4 && this.status == 200) {
-    //             console.log(JSON.parse(this.responseText))
-    //             let compData = JSON.parse(this.responseText)
-    //             // if(compData.length < 2){
-    //             //     document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
-    //             // }
-    //             // else{
-
-    //             // }
-    //         }
-    //     }
-    //     getData.open("GET", "http://localhost:8000/receiveCompData", true );
-    //     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
-
-    // }
-    
+    console.log(rData)
+    if(rData.length <= 1){
+        document.getElementById("comp-tasks").innerHTML = `<h4>Completed tasks will be transferred to this tab on every Wednesday and Friday</h4>`;
+    }
+    else{
+        document.getElementById("comp-tasks").innerHTML = ``;
+        for(let i = 1; i < rData.length; i++){
+            document.getElementById("comp-tasks").innerHTML += `<div class="single-comp-task my-2 px-1"><h3>${rData[i].tasksTitle}</h3></div>`
+        }
+    }
 }
 
 //Remove the selected task
