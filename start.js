@@ -49,8 +49,7 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray.splice(req.body.id , 1);
-            console.log(req.body.id)
-            console.log(JSON.stringify(dataArray))    
+            console.log(req.body.id)  
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The file was modified');
@@ -71,9 +70,6 @@
         }
         else{
             fs.readFile('./data/data.json', function(err, Content){
-                // Data not parsing properly, fix this 
-                console.log("hi")
-                console.log(JSON.parse(Content))
                 res.json(JSON.parse(Content))
             });
         }
@@ -102,13 +98,9 @@
     app.post("/completed", function(req, res){
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
-            dataArray[req.body.id].completed = 1;
-            // console.log(dataArray[req.body.trackTask])
-            // dataArray.push(data);
-            console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
-              console.log('The completion of task was successfully updated' + req.body.trackTask);
+              console.log('The completion of task was successfully updated ' + req.body.id);
             });
         });
         res.send("Data Updated")
@@ -119,10 +111,9 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.id].completed = 0;
-            console.log(JSON.stringify(dataArray))    
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
-              console.log('The completion of task was successfully updated' + req.body.trackTask);
+              console.log('The completion of task was successfully updated ' + req.body.id);
             });
         });
         res.send("Data Updated")

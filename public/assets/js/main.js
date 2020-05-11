@@ -15,10 +15,19 @@ let tabTracker;
 
 // Asks for notification permission from user if it hasn't been denied by user
 if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(function (permission) {
-});
-  }
-
+    Notification.requestPermission().then(function (permission) {       
+    });
+}
+var timepicker = new TimePicker('deadline-time', {
+    lang: 'en',
+    theme: 'dark'
+  });
+  timepicker.on('change', function(evt) {
+    
+    var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+    evt.element.value = value;
+  
+  });
 getUserName();
 startClock();
 
