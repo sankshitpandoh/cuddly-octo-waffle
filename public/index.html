@@ -53,7 +53,8 @@
                     <div id="save-details" class="px-2 m-2" onclick="saveDetails()">Save Details</div>
                     <i class="fa fa-times close-details m-2" onclick="closeTask()"></i>
                     <h5 class="mx-1 mt-4 mb-2">Deadline:</h5>
-                    <input type="date" id="deadline-date" class="mx-1 mb-3"/>
+                    <input type="text" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')" id="deadline-date" class="mx-1 mb-3"/>
+                    <input type="text" placeholder="Time" onfocus="(this.type='time')" onblur="(this.type='text')" id="deadline-time" class="mx-1 mb-3"/>
                     <h5 class="mx-1 mb-2">Sub Tasks:</h5>
                     <textarea id="sub-tasks" class="mx-1 mb-3"></textarea>
                     <h5 class="mx-1 mb-2">Task Priority:</h5>

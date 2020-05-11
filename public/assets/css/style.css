@@ -327,6 +327,18 @@
     color: white;
     border-bottom: 2px solid #FFC68A;
 }
+#details-tab #deadline-date::placeholder{
+    font-family: 'Montserrat-Light';
+}
+#details-tab #deadline-time{
+    border: 0;
+    background-color: #23103A ;
+    color: white;
+    border-bottom: 2px solid #FFC68A;
+}
+#details-tab #deadline-time::placeholder{
+    font-family: 'Montserrat-Light';
+}
 #details-tab #sub-tasks{
     background-color: #FFC68A;
     border: 0;

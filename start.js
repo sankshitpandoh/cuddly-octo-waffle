@@ -25,6 +25,7 @@
             tasksTitle: taskData.title,
             time: taskData.timeStamp,
             taskDeadline : "",
+            taskDeadlineTime : "",
             taskPriority : "",
             taskSubtasks : "",
             taskDetails : "",
@@ -84,6 +85,7 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.trackTask].taskDeadline = req.body.deadLine;
+            dataArray[req.body.trackTask].taskDeadlineTime = req.body.deadLineTime;
             dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
             dataArray[req.body.trackTask].taskPriority = req.body.priority;
             dataArray[req.body.trackTask].taskDetails = req.body.tdetails;

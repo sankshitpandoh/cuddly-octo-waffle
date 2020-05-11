@@ -13,6 +13,12 @@ let tracker;
 // Keeps a track of tab which is opened to make the functions run accordingly
 let tabTracker;
 
+// Asks for notification permission from user if it hasn't been denied by user
+if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+});
+  }
+
 getUserName();
 startClock();
 
@@ -42,17 +48,57 @@ function changeUserName(){
 
 function startClock(){
     today = new Date();
+    let tdate = today.getDate();
     let hours = today.getHours();
     let minutes = today.getMinutes();
     let seconds = today.getSeconds();
     minutes = updateTime(minutes);
     seconds = updateTime(seconds);
+    // console.log(seconds)
     document.getElementById("clock").innerHTML = `${hours} : ${minutes} : ${seconds}`;
+    // Checking if notification needs to be pushed every minute 
+    if(seconds == 00 ){
+        pushNotification(hours,minutes,tdate);
+    }
     let time = setTimeout(startClock, 500);
 }
 function updateTime(t){
     if (t < 10) {t = "0" + t};
     return t;
+}
+
+// function to check if there is any task whose deadline is the current time and date
+function pushNotification(x,y,z){
+    if(rData == undefined){
+        console.log('waiting for async request to complete')
+    }
+    else{
+        for(let i = 1; i < rData.length; i++){
+            let t = rData[i].taskDeadlineTime;
+            let d = rData[i].taskDeadline;
+            let c = rData[i].completed;
+            d = d.substring(8,d.length)
+            let comTime = x + ":" + y;
+            if(t == comTime && d == z && c == 0 ){
+                console.log('pushing notification');
+                sendNotification(rData[i]);
+                count = 0;
+            }
+        }
+    }
+}
+
+// function that sends the push notification
+function sendNotification(x){
+    // if the browser deosn't support push notifications
+    if (!("Notification" in window)) {
+        alert(x.tasksTitle);
+    }
+    else {
+        if (Notification.permission === "granted") {
+          let notification = new Notification(x.tasksTitle);
+        }
+    }
 }
 
 //Active selected option and call the loadContent function
@@ -176,6 +222,7 @@ function displayTaskDetails(x){
     let taskNumber = x.substring(5,(x.length));
     tracker = taskNumber
     document.getElementById("deadline-date").value = rData[taskNumber].taskDeadline;
+    document.getElementById("deadline-time").value = rData[taskNumber].taskDeadlineTime;
     document.getElementById("sub-tasks").value = rData[taskNumber].taskSubtasks;
     document.getElementById("prior").value = rData[taskNumber].taskPriority;
     document.getElementById("details").value = rData[taskNumber].taskDetails;
@@ -184,11 +231,13 @@ function displayTaskDetails(x){
 // Send task details to server and saving it in data.json
 function saveDetails(){
     let taskDeadline = document.getElementById("deadline-date").value;
+    let taskDeadlineTime = document.getElementById("deadline-time").value;
     let taskSubtasks = document.getElementById("sub-tasks").value;
     let taskPriority = document.getElementById("prior").value;
     let taskDetails = document.getElementById("details").value;
     let details = {
         deadLine : taskDeadline,
+        deadLineTime : taskDeadlineTime,
         subTasks : taskSubtasks,
         priority : taskPriority,
         tdetails : taskDetails,
@@ -233,7 +282,7 @@ function updateHighP(){
     // Displaying high priority tasks
     for(let i = 0; i < hPrior.length; i++){
         if(hPrior[i].completed === 1){
-            document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${hTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-3">${hPrior[i].tasksTitle} </h3></div></div>`
+            document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${hTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-3">${hPrior[i].tasksTitle} </h3></div></div>`;
         }
         else{
             document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 align-items-center" id="t-${hTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${hPrior[i].tasksTitle} </h3></div></div>`;
@@ -259,10 +308,10 @@ function updateMediumP(){
     // Displaying high priority tasks
     for(let i = 0; i < mPrior.length; i++){
         if( mPrior[i].completed === 1){
-            document.getElementById("Medium-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${mTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${mTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-M-task d-flex my-2" id="task-${mTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-3">${mPrior[i].tasksTitle} </h3></div></div>`
+            document.getElementById("Medium-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${mTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${mTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-M-task d-flex my-2" id="task-${mTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-3">${mPrior[i].tasksTitle} </h3></div></div>`;
         }
         else{
-            document.getElementById("Medium-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 align-items-center" id="t-${mTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${mTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-M-task d-flex my-2" id="task-${mTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${mPrior[i].tasksTitle} </h3></div></div>`
+            document.getElementById("Medium-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 align-items-center" id="t-${mTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${mTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-M-task d-flex my-2" id="task-${mTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${mPrior[i].tasksTitle} </h3></div></div>`;
         }
     }
 }
@@ -285,7 +334,7 @@ function updateLowP(){
     // Displaying high priority tasks
     for(let i = 0; i < lPrior.length; i++){
         if(lPrior[i].completed === 1){
-            document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${lTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-3">${lPrior[i].tasksTitle} </h3></div></div>`
+            document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${lTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-3">${lPrior[i].tasksTitle} </h3></div></div>`;
         }
         else{
             document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 align-items-center" id="t-${lTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-3">${lPrior[i].tasksTitle} </h3></div></div>`;
