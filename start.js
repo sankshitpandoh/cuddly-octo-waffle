@@ -49,7 +49,7 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray.splice(req.body.id , 1);
-            console.log(req.body.id)  
+            console.log(req.body.id)
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The file was modified');
@@ -64,12 +64,12 @@
         if(req.body.id === "compTasks"){
             fs.readFile('./data/completedTask.json', function(err, Content){
                 // Data not parsing properly, fix this 
-                console.log(JSON.parse(Content))
                 res.json(JSON.parse(Content))
             });
         }
         else{
             fs.readFile('./data/data.json', function(err, Content){
+                // Data not parsing properly, fix this 
                 res.json(JSON.parse(Content))
             });
         }
@@ -98,6 +98,7 @@
     app.post("/completed", function(req, res){
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
+            dataArray[req.body.id].completed = 1;
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The completion of task was successfully updated ' + req.body.id);

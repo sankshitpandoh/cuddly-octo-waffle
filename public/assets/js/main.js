@@ -18,13 +18,15 @@ if (Notification.permission !== "denied") {
     Notification.requestPermission().then(function (permission) {       
     });
 }
-var timepicker = new TimePicker('deadline-time', {
+
+// Interactive time picker for details tab
+let timepicker = new TimePicker('deadline-time', {
     lang: 'en',
     theme: 'dark'
   });
   timepicker.on('change', function(evt) {
     
-    var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+    let value = (evt.hour || '00') + ':' + (evt.minute || '00');
     evt.element.value = value;
   
   });
