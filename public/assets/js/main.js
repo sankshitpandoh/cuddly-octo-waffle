@@ -172,7 +172,8 @@ function updateData(id){
             }
         }
     }
-    getData.open("POST", "http://localhost:8000/receiveData", true );
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    getData.open("POST", "https://note-it-keeper.herokuapp.com/receiveData", true );
     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
     getData.send((JSON.stringify(identify)));
 }
@@ -206,7 +207,9 @@ function sendTask(){
     let myJSON = JSON.stringify(myTask);
     console.log(myJSON); //This is a check
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/sendtask", true);
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/sendtask", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(myJSON);
     xhttp.onreadystatechange = function(){
@@ -257,7 +260,9 @@ function saveDetails(){
     console.log(details)
     details = JSON.stringify(details);
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/sendDetails", true);
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/sendDetails", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(details);
     xhttp.onreadystatechange = function(){
@@ -363,7 +368,9 @@ function taskCompleted(x){
     }
     jsonComp = JSON.stringify(jsonComp);
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/completed", true);
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/completed", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -386,7 +393,9 @@ function taskNotCompleted(x){
     }
     jsonComp = JSON.stringify(jsonComp);
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8000/notCompleted", true);
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/notCompleted", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -420,7 +429,9 @@ function deleteTask(x){
         id : iden
     }
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST" , "http://localhost:8000/rmtask" , true);
+    
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST" , "https://note-it-keeper.herokuapp.com/rmtask" , true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send((JSON.stringify(identify)));
     xhttp.onreadystatechange = function(){

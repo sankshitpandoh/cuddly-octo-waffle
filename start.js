@@ -2,12 +2,13 @@
     const fs = require('fs')
     const bodyParser = require('body-parser')
     let app = express();
+    const port = process.env.PORT || 8000;
 
     app.use(express.static('public'));
     app.use(bodyParser.json({limit: '10mb', extended: true}));
 
     /*Start listening*/
-    let server = app.listen(8000, function () {
+    let server = app.listen(port, function () {
         let host = server.address().address;
         let port = server.address().port;
         
