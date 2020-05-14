@@ -7,3 +7,4 @@ ul,li{ text-decoration:none; display:inline; margin:0; padding:0;}
 a{ text-decoration:none; transition: all 0.5s;}
 a:hover{ text-decoration:none;}
 p{ margin:0; padding:0}
+input:focus{ outline: none;}

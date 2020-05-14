@@ -173,7 +173,7 @@ function updateData(id){
         }
     }
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    getData.open("POST", "https://note-it-keeper.herokuapp.com/receiveData", true );
+    getData.open("POST", "http://localhost:8000/receiveData", true );
     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
     getData.send((JSON.stringify(identify)));
 }
@@ -184,10 +184,10 @@ function updateTasks(rData,id){
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
         if(rData[i].completed === 1){
-            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2">${rData[i].tasksTitle}</h3></div></div>`;
+            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3></div></div>`;
         }
         else{
-        document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 ml-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2">${rData[i].tasksTitle} </h3></div></div>`;
+        document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 mr-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${rData[i].tasksTitle} </h3></div></div>`;
         }
     }
 }
@@ -209,7 +209,7 @@ function sendTask(){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/sendtask", true);
+    xhttp.open("POST", "http://localhost:8000/sendtask", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(myJSON);
     xhttp.onreadystatechange = function(){
@@ -262,7 +262,7 @@ function saveDetails(){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/sendDetails", true);
+    xhttp.open("POST", "http://localhost:8000/sendDetails", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(details);
     xhttp.onreadystatechange = function(){
@@ -370,7 +370,7 @@ function taskCompleted(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/completed", true);
+    xhttp.open("POST", "http://localhost:8000/completed", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -395,7 +395,7 @@ function taskNotCompleted(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/notCompleted", true);
+    xhttp.open("POST", "http://localhost:8000/notCompleted", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -431,7 +431,7 @@ function deleteTask(x){
     let xhttp = new XMLHttpRequest();
     
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST" , "https://note-it-keeper.herokuapp.com/rmtask" , true);
+    xhttp.open("POST" , "http://localhost:8000/rmtask" , true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send((JSON.stringify(identify)));
     xhttp.onreadystatechange = function(){

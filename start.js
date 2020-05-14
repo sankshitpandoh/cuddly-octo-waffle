@@ -2,6 +2,8 @@
     const fs = require('fs')
     const bodyParser = require('body-parser')
     let app = express();
+
+    /* Setting environment var port to get the port number which the environment provided or use 8000 */
     const port = process.env.PORT || 8000;
 
     app.use(express.static('public'));
