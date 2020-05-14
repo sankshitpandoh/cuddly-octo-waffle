@@ -140,11 +140,13 @@ function loadContent(id){
     getData.send();
 };
 
-// update data on tab which is opened or which is being worked on
-function updateData(id){
+/* update data on tab which is opened or which is being worked on 
+The second argument is passed only when rData needs to be updated from subtasks menu in real time*/
+function updateData(id,x){
     let identify = {
         id : id
     }
+    console.log(arguments)
     let getData = new XMLHttpRequest();
     getData.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
@@ -169,6 +171,10 @@ function updateData(id){
                 else{
                     updateCompTasks()
                 }
+            }
+            /* To update subtasks in real time */
+            if(x === true){
+                displaySubTask()
             }
         }
     }
@@ -228,6 +234,7 @@ function expandTask(x){
     console.log(x.id);
     displayTaskDetails(x.id);
     document.getElementById("details-tab").style.width = "25%";
+    document.getElementById("main-display").style.width = "70%";
 }
 
 // Fetching Task Details from server
@@ -237,22 +244,23 @@ function displayTaskDetails(x){
     tracker = taskNumber
     document.getElementById("deadline-date").value = rData[taskNumber].taskDeadline;
     document.getElementById("deadline-time").value = rData[taskNumber].taskDeadlineTime;
-    document.getElementById("sub-tasks").value = rData[taskNumber].taskSubtasks;
+    // - document.getElementById("sub-tasks").value = rData[taskNumber].taskSubtasks;
     document.getElementById("prior").value = rData[taskNumber].taskPriority;
     document.getElementById("details").value = rData[taskNumber].taskDetails;
+    displaySubTask()
 }
 
 // Send task details to server and saving it in data.json
 function saveDetails(){
     let taskDeadline = document.getElementById("deadline-date").value;
     let taskDeadlineTime = document.getElementById("deadline-time").value;
-    let taskSubtasks = document.getElementById("sub-tasks").value;
+    // - let taskSubtasks = document.getElementById("sub-tasks").value;
     let taskPriority = document.getElementById("prior").value;
     let taskDetails = document.getElementById("details").value;
     let details = {
         deadLine : taskDeadline,
         deadLineTime : taskDeadlineTime,
-        subTasks : taskSubtasks,
+        // -subTasks : taskSubtasks,
         priority : taskPriority,
         tdetails : taskDetails,
         trackTask : tracker //tracker keeps a track of which task is currently going on and needs to be updated
@@ -278,6 +286,7 @@ function saveDetails(){
 //Expand details for single task
 function closeTask(){
     document.getElementById("details-tab").style.width = "0%";
+    document.getElementById("main-display").style.width = "100%";
 }
 
 //Update High Priority tasks when opened
@@ -440,4 +449,37 @@ function deleteTask(x){
             updateData(tabTracker);
         }
     }
+}
+
+
+/* Adding subtasks to a particular task */
+function addSubTask(){
+    let subT = document.getElementById("sub-task-title").value
+    let xhttp = new XMLHttpRequest();
+    let subTask = {
+        sTask : subT,
+        trackTask : tracker
+    }
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST" , "http://localhost:8000/getSubTask" , true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send((JSON.stringify(subTask)));
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            /* y is passed as true to updateData here to run displaySubTask() as a callback */
+            let y = true
+            updateData(tabTracker,y);
+        }
+    }
+}
+
+/* Displaying subtasks for specific task */
+function displaySubTask(){
+    document.getElementById("sub-tasks").innerHTML = "";
+    console.log(rData[tracker].taskSubtasks)
+    for(let i = 0; i < rData[tracker].taskSubtasks.length; i++){
+    console.log('here')
+        document.getElementById("sub-tasks").innerHTML += `<p>${rData[tracker].taskSubtasks[i]}</p>`;
+    }
+
 }

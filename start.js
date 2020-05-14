@@ -22,6 +22,7 @@
         addTask(req.body)
         res.send("request processed")
     })
+
     // Function called when a new task is added
     function addTask(taskData){
         let task = {
@@ -30,7 +31,7 @@
             taskDeadline : "",
             taskDeadlineTime : "",
             taskPriority : "",
-            taskSubtasks : "",
+            taskSubtasks : [],
             taskDetails : "",
             completed : 0
         } 
@@ -85,7 +86,7 @@
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.trackTask].taskDeadline = req.body.deadLine;
             dataArray[req.body.trackTask].taskDeadlineTime = req.body.deadLineTime;
-            dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
+            // dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
             dataArray[req.body.trackTask].taskPriority = req.body.priority;
             dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
             console.log(JSON.stringify(dataArray));
@@ -95,6 +96,19 @@
             });
         });
         res.send("Details added")
+    });
+
+    /* Api called when user adds a subtask */
+    app.post("/getSubTask", function(req, res){
+        fs.readFile('./data/data.json', function(err, OldData){
+            let dataArray = JSON.parse(OldData);
+            dataArray[req.body.trackTask].taskSubtasks.push(req.body.sTask);
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+                if (err) throw err;
+                console.log('The subTask ' + req.body.sTask + ' were successfully appended to task' + req.body.trackTask);
+              });
+        });
+        res.send("Sub Task added")
     });
 
     // API called when the user completes a task

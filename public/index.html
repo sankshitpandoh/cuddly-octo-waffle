@@ -53,20 +53,29 @@
                 <div id="details-tab" class="d-flex flex-column">
                     <i class="fa fa-times close-details m-2" onclick="closeTask()"></i>
                     <!-- Deadline section  -->
-                    <div class="deadline-box px-3 py-2">
-                        <h5 class="mx-1 mt-4 mb-2">Deadline:</h5>
+                    <div class="deadline-box px-3 py-2 mb-2">
+                        <h5 class="mb-2">Deadline:</h5>
                         <div class="d-flex">
-                            <input type="text" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')" id="deadline-date" class="mx-1"/>
-                            <input type="text" placeholder="Time" onfocus="(this.type='time')" onblur="(this.type='text')" id="deadline-time" class="mx-1"/>
+                            <input type="text" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')" id="deadline-date" class="mr-1"/>
+                            <input type="text" placeholder="Time" onfocus="(this.type='time')" onblur="(this.type='text')" id="deadline-time" class="di-1"/>
                         </div>
                     </div>
 
                     <!-- SubTask Section -->
-                    <h5 class="mx-1 mb-2">Sub Tasks:</h5>
-                    <textarea id="sub-tasks" class="mx-1 mb-3"></textarea>
+                    <div class="subTask-box px-3 py-2">
+                        <h5 class="mb-2">Sub Tasks:</h5>
+                            <span class="d-flex">
+                                <input id="sub-task-title" placeholder="Enter your task here ..."/>
+                                <input type="submit" value="Add Sub-Task" class="submit-button ml-3 p-2" onclick="addSubTask()" />
+                            </span>
+                        <div id="sub-tasks" class="">
+                            
+                        </div>
+                    </div>
 
                     <!-- Task priority section -->
                         <select class="mx-1 mb-3" id="prior">
+                            <option value="" disabled selected> --Select Priority-- </option>
                             <option value="hp">High Priority</option>
                             <option value="mp">Medium Priority</option>
                             <option value="lp">Low Priority</option>

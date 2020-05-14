@@ -76,6 +76,11 @@
 /* ------------------------- Left Navigation Bar ends here 
 ---------------------------- */
 
+#main-display{
+    transition: 0.5s all;
+}
+
+
 /* ----------------------------- tasks tab 
 ------------------------------- */
 #main-display .add-task{
@@ -307,16 +312,20 @@
     top: 0;
     right: 0;
     width: 0%;
-    background-color: #23103a;
+    background-color: #000;
     height: 100vh;
     transition: 0.5s all;
-    box-shadow: 3px 3px 10px 5px #000;
-    overflow: hidden;
+    /* box-shadow: 3px 3px 10px 5px #fff; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-left: 2px solid #1D1D1D;
 }
 #details-tab h5{
     color: #fff;
     text-decoration: underline;
+    font-family: 'Montserrat-Regular';
 }
+
 #details-tab #save-details{
     cursor: pointer;
     background-color: black;
@@ -333,6 +342,7 @@
     color: black;
     border: 2px solid black;
 }
+
 #details-tab .close-details{
     position: absolute;
     right: 0;
@@ -340,6 +350,10 @@
     transition: 0.5s all;
     color: #FFC68A;
 }
+#details-tab .close-details:hover{
+    color: #fff;
+}
+
 #details-tab #deadline-date{
     border: 0;
     background-color: #23103A ;
@@ -350,36 +364,36 @@
 #details-tab #deadline-date::placeholder{
     font-family: 'Montserrat-Light';
 }
+
 #details-tab #deadline-time{
     border: 0;
     background-color: #23103A ;
     color: white;
     border-bottom: 2px solid #FFC68A;
     width: 50%;
-
 }
 #details-tab #deadline-time::placeholder{
     font-family: 'Montserrat-Light';
 }
+
 #details-tab #sub-tasks{
     background-color: #FFC68A;
     border: 0;
+    height: 200px;
+    padding: 5px;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 #details-tab #details{
     background-color: #FFC68A;
     border: 0;
     padding: 5px;
 }
-#details-tab .close-details:hover{
-    color: #fff;
-}
-#details-tab h5{
+
+/* #details-tab h5{
     font-family: 'Montserrat-Bold';
-}
-#details-tab #sub-tasks{
-    height: 200px;
-    padding: 5px;
-}
+} */
+
 #details-tab #prior{
     background-color: #23103A ;
     border: 0;
