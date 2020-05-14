@@ -53,33 +53,35 @@
                 <div id="details-tab" class="d-flex flex-column">
                     <i class="fa fa-times close-details m-2" onclick="closeTask()"></i>
                     <!-- Deadline section  -->
-                    <div class="deadline-box px-3 py-2 mb-2">
+                    <div class="deadline-box mt-3 mx-2 px-1 py-2 mb-2">
                         <h5 class="mb-2">Deadline:</h5>
-                        <div class="d-flex">
-                            <input type="text" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')" id="deadline-date" class="mr-1"/>
-                            <input type="text" placeholder="Time" onfocus="(this.type='time')" onblur="(this.type='text')" id="deadline-time" class="di-1"/>
+                        <div class="d-flex justify-content-between">
+                            <input type="text" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')" id="deadline-date" class="p-1"/>
+                            <input type="text" placeholder="Time" onfocus="(this.type='time')" onblur="(this.type='text')" id="deadline-time" class="p-1"/>
                         </div>
                     </div>
 
                     <!-- SubTask Section -->
-                    <div class="subTask-box px-3 py-2">
+                    <div class="subTask-box mx-2 px-2 mb-2 py-2">
                         <h5 class="mb-2">Sub Tasks:</h5>
-                            <span class="d-flex">
-                                <input id="sub-task-title" placeholder="Enter your task here ..."/>
-                                <input type="submit" value="Add Sub-Task" class="submit-button ml-3 p-2" onclick="addSubTask()" />
+                            <span class="d-flex justify-content-between mb-2">
+                                <input id="sub-task-title" class="" placeholder="Enter subtask here ..."/>
+                                <input type="submit" value="Add" class="submit-sub p-1" onclick="addSubTask()" />
                             </span>
-                        <div id="sub-tasks" class="">
-                            
-                        </div>
+                        <div id="sub-tasks"></div>
                     </div>
 
                     <!-- Task priority section -->
-                        <select class="mx-1 mb-3" id="prior">
+                    <div class="priority-box mx-2 px-2 mb-2 py-2">
+                        <select id="prior">
                             <option value="" disabled selected> --Select Priority-- </option>
                             <option value="hp">High Priority</option>
                             <option value="mp">Medium Priority</option>
                             <option value="lp">Low Priority</option>
                         </select>
+                    </div>
+
+                        <!-- Comments section -->
                     <h5 class="mx-1 mb-2">Details:</h5>
                     <textarea class="mx-1 mb-3" id="details"></textarea>
                     <div id="save-details" class="px-2 m-2" onclick="saveDetails()">Save Details</div>

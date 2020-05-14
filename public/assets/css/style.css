@@ -311,7 +311,8 @@
     position: fixed;
     top: 0;
     right: 0;
-    width: 0%;
+    width: 0;
+    /* left: 100%; */
     background-color: #000;
     height: 100vh;
     transition: 0.5s all;
@@ -322,8 +323,9 @@
 }
 #details-tab h5{
     color: #fff;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-family: 'Montserrat-Regular';
+    font-size: 20px;
 }
 
 #details-tab #save-details{
@@ -353,36 +355,84 @@
 #details-tab .close-details:hover{
     color: #fff;
 }
-
+#details-tab .deadline-box{
+    background-color: #1D1D1D;
+    border-radius: 5px;
+    /* border-bottom: 2px solid #FFC68A; */
+    /* overflow-x: hidden; */
+}
 #details-tab #deadline-date{
     border: 0;
-    background-color: #23103A ;
+    background-color: #000 ;
     color: white;
-    border-bottom: 2px solid #FFC68A;
-    width: 50%;
-}
-#details-tab #deadline-date::placeholder{
+    border-bottom: 1px solid #FFC68A;
+    width: 48%;
+    border-radius: 5px;
     font-family: 'Montserrat-Light';
 }
+/* #details-tab #deadline-date::placeholder{
+    font-family: 'Montserrat-Light';
+} */
 
 #details-tab #deadline-time{
     border: 0;
-    background-color: #23103A ;
+    background-color: #000 ;
     color: white;
-    border-bottom: 2px solid #FFC68A;
-    width: 50%;
-}
-#details-tab #deadline-time::placeholder{
+    border-bottom: 1px solid #FFC68A;
+    width: 48%;
+    border-radius: 5px;
     font-family: 'Montserrat-Light';
 }
-
-#details-tab #sub-tasks{
+/* #details-tab #deadline-time::placeholder{
+    font-family: 'Montserrat-Light';
+} */
+#details-tab .subTask-box{
+    background-color: #1D1D1D;
+    border-radius: 5px;
+}
+#details-tab .subTask-box #sub-task-title{
+    background-color: transparent;
+    border: none;
+    font-family: 'Montserrat-Light';
+    color: #FFC68A;
+    border-bottom: 1px solid #fff;
+    padding: 0;
+    width: 70%;
+}
+#details-tab .subTask-box .submit-sub{
+    width: 25%;
     background-color: #FFC68A;
     border: 0;
-    height: 200px;
+    color: #000;
+    border-radius: 5px;
+    transition: 0.5s all;
+    cursor: pointer;
+    border: 1px solid #FFC68A;
+}
+#details-tab .subTask-box .submit-sub:hover{
+    background-color: #000;
+    color: #FFC68A;
+}
+#details-tab #sub-tasks{
+    background-color: #000;
+    border: 0;
     padding: 5px;
     overflow-y: scroll;
     scrollbar-width: none;
+    border-radius: 5px;
+    max-height: 175px;
+}
+#details-tab .priority-box{
+    background-color: #1D1D1D;
+    border-radius: 5px;
+}
+#details-tab .priority-box #prior{
+    width: 100%;
+    background-color: #000 ;
+    border: 0;
+    border-bottom: 2px solid #FFC68A;
+    color: #FFC68A;
+    border-radius: 5px;
 }
 #details-tab #details{
     background-color: #FFC68A;
@@ -393,13 +443,6 @@
 /* #details-tab h5{
     font-family: 'Montserrat-Bold';
 } */
-
-#details-tab #prior{
-    background-color: #23103A ;
-    border: 0;
-    border-bottom: 2px solid #ff6c00;
-    color: #FFC68A;
-}
 #details-tab #details{
     height: 20%;
     height: 200px;

@@ -234,6 +234,7 @@ function expandTask(x){
     console.log(x.id);
     displayTaskDetails(x.id);
     document.getElementById("details-tab").style.width = "25%";
+    // document.getElementById("details-tab").style.left = "75%";
     document.getElementById("main-display").style.width = "70%";
 }
 
@@ -475,11 +476,14 @@ function addSubTask(){
 
 /* Displaying subtasks for specific task */
 function displaySubTask(){
-    document.getElementById("sub-tasks").innerHTML = "";
-    console.log(rData[tracker].taskSubtasks)
-    for(let i = 0; i < rData[tracker].taskSubtasks.length; i++){
-    console.log('here')
-        document.getElementById("sub-tasks").innerHTML += `<p>${rData[tracker].taskSubtasks[i]}</p>`;
+    if(rData[tracker].taskSubtasks.length === 0){
+        document.getElementById("sub-tasks").innerHTML = `<p>No Sub Tasks yet</p>`;
     }
-
+    else{
+        document.getElementById("sub-tasks").innerHTML = "";
+        for(let i = 0; i < rData[tracker].taskSubtasks.length; i++){
+        console.log('here')
+        document.getElementById("sub-tasks").innerHTML += `<p>${rData[tracker].taskSubtasks[i]}</p>`;
+        }
+    }
 }
