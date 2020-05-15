@@ -133,6 +133,7 @@
             fs.readFile('./data/data.json', function (err, OldData) {
                 let dataArray = JSON.parse(OldData);
                 dataArray[req.body.tTrack].taskSubtasks[req.body.subId].completed = 0;
+                dataArray[req.body.tTrack].completed = 0;
                 fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
                   if (err) throw err;
                   console.log('The completion of task was successfully updated ' + req.body.id);

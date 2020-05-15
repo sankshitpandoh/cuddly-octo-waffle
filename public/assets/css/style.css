@@ -144,6 +144,42 @@
     white-space: nowrap;
     position: relative;
 }
+#main-display #tasks-list .single-task .high-prior{
+    position: absolute;
+    right: 0;
+    width: 15px;
+    background-color: #C70000;
+    height: 25%;
+    top: 50%;
+    transform: translate(0%,-50%);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    font-family: 'Montserrat-Regular';
+}
+#main-display #tasks-list .single-task .med-prior{
+    position: absolute;
+    right: 0;
+    width: 15px;
+    background-color: #F5C400;
+    height: 25%;
+    top: 50%;
+    transform: translate(0%,-50%);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    font-family: 'Montserrat-Regular';
+}
+#main-display #tasks-list .single-task .low-prior{
+    position: absolute;
+    right: 0;
+    width: 15px;
+    background-color: #DDDDD4;
+    height: 25%;
+    top: 50%;
+    transform: translate(0%,-50%);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    font-family: 'Montserrat-Regular';
+}
 #main-display #tasks-list .single-task span{
     background-color: green;
     opacity: 0.35;
