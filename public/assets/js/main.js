@@ -247,7 +247,7 @@ function displayTaskDetails(x){
     document.getElementById("deadline-time").value = rData[taskNumber].taskDeadlineTime;
     // - document.getElementById("sub-tasks").value = rData[taskNumber].taskSubtasks;
     document.getElementById("prior").value = rData[taskNumber].taskPriority;
-    document.getElementById("details").value = rData[taskNumber].taskDetails;
+    // -document.getElementById("").value = rData[taskNumber].taskDetails;
     displaySubTask()
 }
 
@@ -257,7 +257,7 @@ function saveDetails(){
     let taskDeadlineTime = document.getElementById("deadline-time").value;
     // - let taskSubtasks = document.getElementById("sub-tasks").value;
     let taskPriority = document.getElementById("prior").value;
-    let taskDetails = document.getElementById("details").value;
+    // -let taskDetails = document.getElementById("details").value;
     let details = {
         deadLine : taskDeadline,
         deadLineTime : taskDeadlineTime,

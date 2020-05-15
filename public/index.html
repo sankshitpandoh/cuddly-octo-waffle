@@ -50,10 +50,10 @@
                         <div id="main-display"></div>
                     </div>
                 </div>
-                <div id="details-tab" class="d-flex flex-column">
+                <div id="details-tab" class="d-flex flex-column justify-content-between">
                     <i class="fa fa-times close-details m-2" onclick="closeTask()"></i>
                     <!-- Deadline section  -->
-                    <div class="deadline-box mt-3 mx-2 px-1 py-2 mb-2">
+                    <div class="deadline-box mt-2 mx-2 px-1 py-2 mb-2">
                         <h5 class="mb-2">Deadline:</h5>
                         <div class="d-flex justify-content-between">
                             <input type="text" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')" id="deadline-date" class="p-1"/>
@@ -82,9 +82,24 @@
                     </div>
 
                         <!-- Comments section -->
-                    <h5 class="mx-1 mb-2">Details:</h5>
-                    <textarea class="mx-1 mb-3" id="details"></textarea>
-                    <div id="save-details" class="px-2 m-2" onclick="saveDetails()">Save Details</div>
+                    <div class="comments-box mx-2 px-2 mb-2 py-2">
+                        <h5 class="mb-2">Comments:</h5>
+                        <div id="comments-cont" class="mb-2"></div>
+                        <span class="d-flex justify-content-between">
+                            <input id="comment-title" class="" placeholder="Type Comments here ..."/>
+                            <input type="submit" value="Add" class="submit-comment p-1" onclick="addComment()" />
+                        </span>
+                    </div>
+
+                    <!-- Save details -->
+                    <div class="save-det-box">
+                        <div id="save-details" class="mx-2 px-2 mb-2 py-2" onclick="saveDetails()">
+                            <p class="text-center">
+                                Save Details
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

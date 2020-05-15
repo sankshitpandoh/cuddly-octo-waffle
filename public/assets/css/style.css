@@ -327,24 +327,6 @@
     font-family: 'Montserrat-Regular';
     font-size: 20px;
 }
-
-#details-tab #save-details{
-    cursor: pointer;
-    background-color: black;
-    color: #FFC68A;
-    transition: 0.5s all;
-    border: 2px solid white;
-    width: 120px;
-    font-family: 'Montserrat-Regular';
-    box-shadow: 0px 0px 14px 2px #000;
-    border-radius: 6px;
-}
-#details-tab #save-details:hover{
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-}
-
 #details-tab .close-details{
     position: absolute;
     right: 0;
@@ -407,7 +389,9 @@
     border-radius: 5px;
     transition: 0.5s all;
     cursor: pointer;
+    font-family: 'Montserrat-Regular';
     border: 1px solid #FFC68A;
+    font-size: 14px;
 }
 #details-tab .subTask-box .submit-sub:hover{
     background-color: #000;
@@ -417,10 +401,10 @@
     background-color: #000;
     border: 0;
     padding: 5px;
-    overflow-y: scroll;
+    overflow-y: auto;
     scrollbar-width: none;
     border-radius: 5px;
-    max-height: 175px;
+    height: 125px;
 }
 #details-tab .priority-box{
     background-color: #1D1D1D;
@@ -434,18 +418,61 @@
     color: #FFC68A;
     border-radius: 5px;
 }
-#details-tab #details{
+#details-tab .comments-box{
+    background-color: #1D1D1D;
+    border-radius: 5px;
+}
+#details-tab .comments-box #comments-cont{
+    height: 125px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background-color: #000;
+    border-radius: 5px;
+}
+#details-tab .comments-box #comment-title{
+    background-color: transparent;
+    border: none;
+    font-family: 'Montserrat-Light';
+    color: #FFC68A;
+    border-bottom: 1px solid #fff;
+    padding: 0;
+    width: 70%;
+}
+#details-tab .comments-box .submit-comment{
+    width: 25%;
     background-color: #FFC68A;
     border: 0;
-    padding: 5px;
+    color: #000;
+    border-radius: 5px;
+    transition: 0.5s all;
+    cursor: pointer;
+    font-family: 'Montserrat-Regular';
+    border: 1px solid #FFC68A;
+    font-size: 14px;
+}
+#details-tab .comments-box .submit-comment:hover{
+    background-color: #000;
+    color: #FFC68A;
 }
 
-/* #details-tab h5{
-    font-family: 'Montserrat-Bold';
+/* #details-tab .save-det-box{
 } */
-#details-tab #details{
-    height: 20%;
-    height: 200px;
+
+#details-tab .save-det-box #save-details{
+    cursor: pointer;
+    background-color: #FFC68A;
+    color: #000;
+    transition: 0.5s all;
+    font-family: 'Montserrat-Regular';
+    border-radius: 5px;
+    border: 1px solid #FFC68A ;
+}
+#details-tab .save-det-box #save-details:hover{
+    background-color: black;
+    color: #FFC68A;
+}
+#details-tab .save-det-box #save-details p{
+    width: 100%;
 }
 
 
