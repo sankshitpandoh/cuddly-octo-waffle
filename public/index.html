@@ -65,7 +65,7 @@
                     <div class="subTask-box mx-2 px-2 mb-2 py-2">
                         <h5 class="mb-2">Sub Tasks:</h5>
                             <span class="d-flex justify-content-between mb-2">
-                                <input id="sub-task-title" class="" placeholder="Enter subtask here ..."/>
+                                <input id="sub-task-title" class="" placeholder="Enter subtask here ..." onkeypress="return checkSubTaskSend(event)"/>
                                 <input type="submit" value="Add" class="submit-sub p-1" onclick="addSubTask()" />
                             </span>
                         <div id="sub-tasks"></div>

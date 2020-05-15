@@ -198,6 +198,14 @@ function updateTasks(rData,id){
     }
 }
 
+/* Submit task on press of enter key */
+function checkTaskSend(event){
+    if(event.keyCode === 13){
+        // event.preventDefault
+        sendTask()
+    }
+}
+
 // Send task to server to store
 function sendTask(){
     // Time when the task is being added to get the time stamp
@@ -261,9 +269,9 @@ function saveDetails(){
     let details = {
         deadLine : taskDeadline,
         deadLineTime : taskDeadlineTime,
-        // -subTasks : taskSubtasks,
+        // - subTasks : taskSubtasks,
         priority : taskPriority,
-        tdetails : taskDetails,
+        // - tdetails : taskDetails,
         trackTask : tracker //tracker keeps a track of which task is currently going on and needs to be updated
     }
     console.log(details)
@@ -453,6 +461,13 @@ function deleteTask(x){
 }
 
 
+/* Submit Sub task on press of enter key */
+function checkSubTaskSend(event){
+    if(event.keyCode === 13){
+        // event.preventDefault
+        addSubTask()
+    }
+}
 /* Adding subtasks to a particular task */
 function addSubTask(){
     let subT = document.getElementById("sub-task-title").value

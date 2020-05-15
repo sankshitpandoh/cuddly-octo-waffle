@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-12">
         <div class="add-task d-flex flex-column py-3 px-3">
-            <!-- <h2 class="mb-2">Add Task:</h2> -->
             <span class="d-flex">
-                <input id="task-title" placeholder="Enter your task here ..."/>
+                <input id="task-title" placeholder="Enter your task here ..." onkeypress="return checkTaskSend(event)"/>
                 <input type="submit" value="Add Task" class="submit-button ml-3 p-2" onclick="sendTask()" />
             </span>
         </div>
