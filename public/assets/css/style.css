@@ -5,7 +5,7 @@
 }
 .completed-task{
     text-decoration: line-through;
-    text-decoration-thickness: 4px;
+    text-decoration-thickness: 3px;
     text-decoration-color: black;
     font-family: 'Montserrat-Bold';
 }
@@ -19,6 +19,9 @@
 .del-task:hover{
     background-color: white;
     color: black;
+}
+.active-task{
+    background-color:#828282 !important;
 }
 /* ------------------------- Left Navigation Bar starts here 
 ---------------------------- */
@@ -131,7 +134,7 @@
     display: none;
 }
 #main-display #tasks-list .single-task{
-    background-color: #162447;
+    background-color: #424141;
     width: 100%;
     cursor: pointer;
     transition: 0.5s all;
@@ -139,9 +142,21 @@
     overflow-x: auto;
     scrollbar-width: none;
     white-space: nowrap;
+    position: relative;
+}
+#main-display #tasks-list .single-task span{
+    background-color: green;
+    opacity: 0.35;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* width: 0; */
+    transition: 0.5s all;
+    
 }
 #main-display #tasks-list .single-task:hover{
-    background-color: #1e305e;
+    background-color: #828282;
 }
 #main-display #tasks-list .completed{
     color: white;

@@ -149,11 +149,9 @@ function updateData(id,x){
     let identify = {
         id : id
     }
-    console.log(arguments)
     let getData = new XMLHttpRequest();
     getData.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText))
             rData = JSON.parse(this.responseText)
             if(rData.length < 2 && id == "tasks"){
                 document.getElementById(id + '-list').innerHTML = `<div class="no-data">There are no ${id} to display :( <br/> Add one Now`
@@ -189,14 +187,44 @@ function updateData(id,x){
 
 // show all tasks
 function updateTasks(rData,id){
-    console.log(id +"-list");
+    // console.log(id +"-list");
+    console.log(rData)
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
         if(rData[i].completed === 1){
-            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3></div></div>`;
+            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div></div>`;
+            document.getElementById("task-comp-" + i).style.width = "100%"
         }
         else{
-        document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${rData[i].tasksTitle} </h3></div></div>`;
+            /* When I wrote this only me andGod knew how this was working
+                Now only God knows */
+            if(rData[i].taskSubtasks.length === 0){
+                console.log(i)
+                document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${rData[i].tasksTitle} </h3></div></div>`;
+            }
+            else{
+                let compCounter = 0;
+                let nCompCounter = 0
+                for(let j = 0; j < rData[i].taskSubtasks.length; j++){
+                    console.log(rData[i].taskSubtasks[j].completed)
+                    if(rData[i].taskSubtasks[j].completed === 1){
+                        compCounter  = compCounter + 1
+                    }
+                    else{
+                        nCompCounter = nCompCounter + 1
+                    }
+                }
+                document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${rData[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
+                    compBar = 100 / (compCounter + nCompCounter);
+                    compBar = compBar * compCounter;
+                    if(compBar === 100){
+                        let iden = {
+                            id : "C-" + i
+                        }
+                        taskCompleted(iden)
+                    }
+                    document.getElementById("task-comp-" + i).style.width = compBar + "%"
+            }
         }
     }
 }
@@ -247,11 +275,14 @@ function sendTask(){
 
 //Expand details for single task
 function expandTask(x){
+    closeTask()
     console.log(x.id);
     displayTaskDetails(x.id);
     document.getElementById("details-tab").style.width = "25%";
     // document.getElementById("details-tab").style.left = "75%";
     document.getElementById("main-display").style.width = "70%";
+    console.log(tracker + " " + rData.length + " " + x)
+    document.getElementById("task-" + tracker).classList.add("active-task")
 }
 
 // Fetching Task Details from server
@@ -302,8 +333,17 @@ function saveDetails(){
 
 //Expand details for single task
 function closeTask(){
+    if(document.getElementById("details-tab").offsetWidth == 2){
+        document.getElementById("details-tab").style.width = "0%";
+        document.getElementById("main-display").style.width = "100%";
+
+    }
+    else{
+    document.getElementById("task-" + tracker).classList.remove("active-task")
     document.getElementById("details-tab").style.width = "0%";
     document.getElementById("main-display").style.width = "100%";
+    }
+
 }
 
 //Update High Priority tasks when opened
@@ -403,7 +443,9 @@ function taskCompleted(x){
         if (this.readyState == 4 && this.status == 200) {
             // If the date is successfully sent to server, update on console
             console.log('Completion status sent to server')
-            updateData(tabTracker) //Update data on the tab that is opened
+                /* y is passed as true to updateData here to run displaySubTask() as a callback */
+                let y = true
+                updateData(tabTracker,y);
         }
     }
     
@@ -428,7 +470,9 @@ function taskNotCompleted(x){
         if (this.readyState == 4 && this.status == 200) {
             // If the date is successfully sent to server, update on console
             console.log('Completion status sent to server')
-            updateData(tabTracker) //Update data on the tab that is opened
+                /* y is passed as true to updateData here to run displaySubTask() as a callback */
+                let y = true
+                updateData(tabTracker,y);
         }
     }
 }
@@ -464,6 +508,8 @@ function deleteTask(x){
         if (this.readyState == 4 && this.status == 200) {
             // If the task is successfully removed from server, update the data on tasks
             updateData(tabTracker);
+            document.getElementById("details-tab").style.width = "0%";
+            document.getElementById("main-display").style.width = "100%";
         }
     }
 }

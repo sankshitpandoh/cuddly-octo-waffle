@@ -159,6 +159,9 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.id].completed = 1;
+            for(let i = 0; i < dataArray[req.body.id].taskSubtasks.length; i++ ){
+                dataArray[req.body.id].taskSubtasks[i].completed = 1;
+            }
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The completion of task was successfully updated ' + req.body.id);
@@ -172,6 +175,9 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.id].completed = 0;
+            for(let i = 0; i < dataArray[req.body.id].taskSubtasks.length; i++ ){
+                dataArray[req.body.id].taskSubtasks[i].completed = 0;
+            }
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The completion of task was successfully updated ' + req.body.id);
