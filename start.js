@@ -67,13 +67,11 @@
         console.log(req.body.id)
         if(req.body.id === "compTasks"){
             fs.readFile('./data/completedTask.json', function(err, Content){
-                // Data not parsing properly, fix this 
                 res.json(JSON.parse(Content))
             });
         }
         else{
             fs.readFile('./data/data.json', function(err, Content){
-                // Data not parsing properly, fix this 
                 res.json(JSON.parse(Content))
             });
         }
@@ -86,7 +84,6 @@
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.trackTask].taskDeadline = req.body.deadLine;
             dataArray[req.body.trackTask].taskDeadlineTime = req.body.deadLineTime;
-            // dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
             dataArray[req.body.trackTask].taskPriority = req.body.priority;
             // dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
             console.log(JSON.stringify(dataArray));

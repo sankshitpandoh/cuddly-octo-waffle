@@ -1,28 +1,28 @@
-//Stores user name
+/* Stores user name */
 let userName ;
 
-//Stores today's date
+/* Stores today's date */
 let today ;
 
-//Contains data called from node server 
+/* Contains data called from node server */ 
 let rData ;
 
-// Keeps a track of which task are we working on
+/* Keeps a track of which task are we working on */
 let tracker;
 
-// Keeps a track of tab which is opened to make the functions run accordingly
+/* Keeps a track of tab which is opened to make the functions run accordingly */
 let tabTracker;
 
  /* Checks if any field is empty or not */
  const isEmpty = str => !str.trim().length;
 
-// Asks for notification permission from user if it hasn't been denied by user
+/* Asks for notification permission from user if it hasn't been denied by user */
 if (Notification.permission !== "denied") {
     Notification.requestPermission().then(function (permission) {       
     });
 }
 
-// Interactive time picker for details tab
+/* Interactive time picker for details tab */
 let timepicker = new TimePicker('deadline-time', {
     lang: 'en',
     theme: 'dark'
@@ -36,10 +36,10 @@ let timepicker = new TimePicker('deadline-time', {
 getUserName();
 startClock();
 
-//Load default content - summary
+/* Load default content - tasks tab */
 loadContent("tasks");
 
-//Get user name for the user
+/* Get user name for the user */
 function getUserName(){
     if(localStorage.getItem('userName') == null){
         userName = prompt("Please enter your name", "USER NAME");
@@ -52,7 +52,7 @@ function getUserName(){
     }
 }
 
-//Change or Update User Name
+/* Change or Update User Name */
 function changeUserName(){
     userName = prompt("Enter new user name", "USER NAME");
     localStorage.removeItem('userName');
@@ -81,7 +81,7 @@ function updateTime(t){
     return t;
 }
 
-// function to check if there is any task whose deadline is the current time and date
+/* function that checks if there is any task whose deadline is the current time and date - runs once every second */
 function pushNotification(x,y,z){
     if(rData == undefined){
         console.log('waiting for async request to complete')
@@ -102,10 +102,11 @@ function pushNotification(x,y,z){
     }
 }
 
-// function that sends the push notification
+/* Main Function that sends the push notification to browser */
 function sendNotification(x){
-    // if the browser deosn't support push notifications
     if (!("Notification" in window)) {
+            /*  If the browser deosn't support push notifications
+        we alert user alert box to inform the user */
         alert(x.tasksTitle);
     }
     else {
@@ -115,7 +116,7 @@ function sendNotification(x){
     }
 }
 
-//Active selected option and call the loadContent function
+/* Activate the selected option and call the loadContent function to load the respective content */
 function load(selectedElem){
     let elem = document.querySelectorAll(".t-nav li");
     for (let i = 0; i < elem.length; i++){
@@ -125,17 +126,16 @@ function load(selectedElem){
     loadContent(selectedElem.id);
 }
 
-//load content on which nav option is selected
+/* load content on which nav option is selected */
 function loadContent(id){
     let locationData = "pages/" + id + ".html"
     let getData = new XMLHttpRequest();
     getData.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            // console.log("we in")
             document.getElementById("main-display").innerHTML = this.responseText;
             updateData(id)
             tabTracker = id 
-            // Close details tab if left opened
+            /* Close details tab if left opened */
             closeTask()
         }
     }
@@ -185,9 +185,8 @@ function updateData(id,x){
     getData.send((JSON.stringify(identify)));
 }
 
-// show all tasks
+/* Display all tasks */
 function updateTasks(rData,id){
-    // console.log(id +"-list");
     console.log(rData)
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
@@ -663,3 +662,6 @@ function delSubTask(x){
         }
     }
 }
+/* To DO 
+    - improve layout for different priority tabs too
+    - if implementing socket .io in comments section add functionality to create different users */
