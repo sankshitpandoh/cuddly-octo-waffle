@@ -406,6 +406,55 @@
     border-radius: 5px;
     height: 125px;
 }
+#details-tab #sub-tasks .single-sub-task .single-sub-cont{
+    overflow: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+    border-radius: 5px;
+    width: 100%;
+    background-color: white;
+}
+#details-tab #sub-tasks .single-sub-task .at-cont{
+    background-color: #fff;
+    color: #000;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #fff;
+    transition: 0.5s all;
+}
+#details-tab #sub-tasks .single-sub-task .at-cont:hover{
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+/* if sub task is completed check mark starts here */
+#details-tab #sub-tasks .single-sub-task .at-cont-comp{
+    background-color: #000;
+    color: #fff;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #fff;
+    transition: 0.5s all;
+}
+#details-tab #sub-tasks .single-sub-task .at-cont-comp:hover{
+    background-color: #fff;
+    color: #000;
+}
+/* if sub task is completed check mark ends here */
+
+#details-tab #sub-tasks .single-sub-task p{
+    color: black;
+    font-family: 'Montserrat-Light';
+    text-transform: capitalize;
+}
+#details-tab #sub-tasks .single-sub-task .completed-sub{
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: black;
+}
 #details-tab .priority-box{
     background-color: #1D1D1D;
     border-radius: 5px;

@@ -32,7 +32,7 @@
             taskDeadlineTime : "",
             taskPriority : "",
             taskSubtasks : [],
-            taskDetails : "",
+            taskComments : [],
             completed : 0
         } 
         let data = task
@@ -88,7 +88,7 @@
             dataArray[req.body.trackTask].taskDeadlineTime = req.body.deadLineTime;
             // dataArray[req.body.trackTask].taskSubtasks = req.body.subTasks;
             dataArray[req.body.trackTask].taskPriority = req.body.priority;
-            dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
+            // dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
             console.log(JSON.stringify(dataArray));
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
@@ -102,7 +102,11 @@
     app.post("/getSubTask", function(req, res){
         fs.readFile('./data/data.json', function(err, OldData){
             let dataArray = JSON.parse(OldData);
-            dataArray[req.body.trackTask].taskSubtasks.push(req.body.sTask);
+            let sObj = {
+                sTask : req.body.sTask,
+                completed : req.body.complete
+            }
+            dataArray[req.body.trackTask].taskSubtasks.push(sObj);
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
                 if (err) throw err;
                 console.log('The subTask ' + req.body.sTask + ' were successfully appended to task' + req.body.trackTask);
@@ -110,6 +114,45 @@
         });
         res.send("Sub Task added")
     });
+
+    /* Api called when user completes a sub task */
+    app.post("/subTComp", function(req, res){
+        fs.readFile('./data/data.json', function (err, OldData) {
+            let dataArray = JSON.parse(OldData);
+            dataArray[req.body.tTrack].taskSubtasks[req.body.subId].completed = 1;
+            fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+              if (err) throw err;
+              console.log('The completion of task was successfully updated ' + req.body.id);
+            });
+        });
+        res.send("Data Updated")
+    })
+
+        /* Api called when user un checks completion of a sub task */
+        app.post("/subTUnComp", function(req, res){
+            fs.readFile('./data/data.json', function (err, OldData) {
+                let dataArray = JSON.parse(OldData);
+                dataArray[req.body.tTrack].taskSubtasks[req.body.subId].completed = 0;
+                fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+                  if (err) throw err;
+                  console.log('The completion of task was successfully updated ' + req.body.id);
+                });
+            });
+            res.send("Data Updated")
+        })
+
+        /* Api called when user deletes a sub Task */
+        app.post("/removeSub", function(req, res){
+            fs.readFile('./data/data.json', function (err, OldData) {
+                let dataArray = JSON.parse(OldData);
+                dataArray[req.body.tTrack].taskSubtasks.splice(req.body.subId,1);
+                fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+                  if (err) throw err;
+                  console.log('sub task was sucessfully removed ' + req.body.id);
+                });
+            });
+            res.send("Data Updated")
+        })
 
     // API called when the user completes a task
     app.post("/completed", function(req, res){

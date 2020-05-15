@@ -459,7 +459,8 @@ function addSubTask(){
     let xhttp = new XMLHttpRequest();
     let subTask = {
         sTask : subT,
-        trackTask : tracker
+        trackTask : tracker,
+        complete : 0
     }
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
     xhttp.open("POST" , "http://localhost:8000/getSubTask" , true);
@@ -472,6 +473,7 @@ function addSubTask(){
             updateData(tabTracker,y);
         }
     }
+    document.getElementById("sub-task-title").value = ""
 }
 
 /* Displaying subtasks for specific task */
@@ -482,8 +484,87 @@ function displaySubTask(){
     else{
         document.getElementById("sub-tasks").innerHTML = "";
         for(let i = 0; i < rData[tracker].taskSubtasks.length; i++){
-        console.log('here')
-        document.getElementById("sub-tasks").innerHTML += `<p>${rData[tracker].taskSubtasks[i]}</p>`;
+            if(rData[tracker].taskSubtasks[i].completed === 0){
+                document.getElementById("sub-tasks").innerHTML += `<div class="single-sub-task d-flex mb-2" id="subTask-${i}"><div class="at-cont" id="s-t-${i}" onclick="compSubTask(this)"><i class="fa fa-check px-1"></i></div><div class="at-cont" id="st-${i}" onclick="delSubTask(this)"><i class="fa fa-trash px-1"></i></div><div class="single-sub-cont d-flex align-items-center ml-1 px-1"><p>${rData[tracker].taskSubtasks[i].sTask}</p></div></div>`;
+            }
+            else{
+                document.getElementById("sub-tasks").innerHTML += `<div class="single-sub-task d-flex mb-2" id="subTask-${i}"><div class="at-cont-comp" id="s-t-${i}" onclick="unCompSubTask(this)"><i class="fa fa-check px-1"></i></div><div class="at-cont" id="st-${i}" onclick="delSubTask(this)"><i class="fa fa-trash px-1"></i></div><div class="single-sub-cont d-flex align-items-center ml-1 px-1"><p class="completed-sub">${rData[tracker].taskSubtasks[i].sTask}</p></div></div>`;
+            }
+        }
+    }
+}
+
+/* Completing a single sub task */
+function compSubTask(x){
+    let y  = x.id.substring(4,x.length)
+    let jsonComp ={
+        subId : y,
+        tTrack : tracker
+    }
+    jsonComp = JSON.stringify(jsonComp);
+    let xhttp = new XMLHttpRequest();
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "http://localhost:8000/subTComp", true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send(jsonComp);
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            // If the date is successfully sent to server, update on console
+            console.log('Sub Task Completion status sent to server')
+            /* y is passed as true to updateData here to run displaySubTask() as a callback */
+            let y = true
+            updateData(tabTracker,y);
+        }
+    }
+}
+
+/* Unchecking Completion status of a single sub task */
+function unCompSubTask(x){
+    let y  = x.id.substring(4,x.length)
+    let jsonComp ={
+        subId : y,
+        tTrack : tracker
+    }
+    jsonComp = JSON.stringify(jsonComp);
+    let xhttp = new XMLHttpRequest();
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "http://localhost:8000/subTUnComp", true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send(jsonComp);
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            // If the date is successfully sent to server, update on console
+            console.log('Sub Task Completion status sent to server')
+            /* y is passed as true to updateData here to run displaySubTask() as a callback */
+            let y = true
+            updateData(tabTracker,y);
+        }
+    }
+}
+
+/* Removing a sub Task */
+function delSubTask(x){
+    let y  = x.id.substring(3,x.length);
+    let jsonComp ={
+        subId : y,
+        tTrack : tracker
+    }
+    jsonComp = JSON.stringify(jsonComp);
+    let xhttp = new XMLHttpRequest();
+
+    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+    xhttp.open("POST", "http://localhost:8000/removeSub", true);
+    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+    xhttp.send(jsonComp);
+    xhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            // If the date is successfully sent to server, update on console
+            console.log('Sub Task Completion status sent to server')
+            /* y is passed as true to updateData here to run displaySubTask() as a callback */
+            let y = true
+            updateData(tabTracker,y);
         }
     }
 }
