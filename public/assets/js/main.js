@@ -13,6 +13,9 @@ let tracker;
 // Keeps a track of tab which is opened to make the functions run accordingly
 let tabTracker;
 
+ /* Checks if any field is empty or not */
+ const isEmpty = str => !str.trim().length;
+
 // Asks for notification permission from user if it hasn't been denied by user
 if (Notification.permission !== "denied") {
     Notification.requestPermission().then(function (permission) {       
@@ -190,10 +193,10 @@ function updateTasks(rData,id){
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
         if(rData[i].completed === 1){
-            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-1 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3></div></div>`;
+            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3></div></div>`;
         }
         else{
-        document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-1 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-1 mr-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${rData[i].tasksTitle} </h3></div></div>`;
+        document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${rData[i].tasksTitle} </h3></div></div>`;
         }
     }
 }
@@ -213,28 +216,33 @@ function sendTask(){
     time = Date.parse(time);
 
     let tTitle = document.getElementById("task-title").value;
-    tTitle = tTitle[0].toUpperCase() + tTitle.slice(1);
-    let myTask = {
-        title : tTitle,
-        timeStamp: time
+    if(isEmpty(tTitle)){
+        document.getElementById("task-title").value = "";
     }
-    let myJSON = JSON.stringify(myTask);
-    console.log(myJSON); //This is a check
-    let xhttp = new XMLHttpRequest();
-
-    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "http://localhost:8000/sendtask", true);
-    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    xhttp.send(myJSON);
-    xhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) {
-            // If the task is successfully stored on server, update the data on tasks tab
-            console.log('task sent to server')
-            updateData("tasks")
+    else{
+        tTitle = tTitle[0].toUpperCase() + tTitle.slice(1);
+        let myTask = {
+            title : tTitle,
+            timeStamp: time
         }
+        let myJSON = JSON.stringify(myTask);
+        console.log(myJSON); //This is a check
+        let xhttp = new XMLHttpRequest();
+    
+        /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+        xhttp.open("POST", "http://localhost:8000/sendtask", true);
+        xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+        xhttp.send(myJSON);
+        xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                // If the task is successfully stored on server, update the data on tasks tab
+                console.log('task sent to server')
+                updateData("tasks")
+            }
+        }
+        document.getElementById("task-title").value = "";
+        return false;
     }
-    document.getElementById("task-title").value = "";
-    return false;
 }
 
 //Expand details for single task
@@ -471,24 +479,29 @@ function checkSubTaskSend(event){
 /* Adding subtasks to a particular task */
 function addSubTask(){
     let subT = document.getElementById("sub-task-title").value
-    let xhttp = new XMLHttpRequest();
-    let subTask = {
-        sTask : subT,
-        trackTask : tracker,
-        complete : 0
+    if(isEmpty(subT)){
+        document.getElementById("sub-task-title").value = "";
     }
-    /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST" , "http://localhost:8000/getSubTask" , true);
-    xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    xhttp.send((JSON.stringify(subTask)));
-    xhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) {
-            /* y is passed as true to updateData here to run displaySubTask() as a callback */
-            let y = true
-            updateData(tabTracker,y);
+    else{
+        let xhttp = new XMLHttpRequest();
+        let subTask = {
+            sTask : subT,
+            trackTask : tracker,
+            complete : 0
         }
+        /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+        xhttp.open("POST" , "http://localhost:8000/getSubTask" , true);
+        xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+        xhttp.send((JSON.stringify(subTask)));
+        xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                /* y is passed as true to updateData here to run displaySubTask() as a callback */
+                let y = true
+                updateData(tabTracker,y);
+            }
+        }
+        document.getElementById("sub-task-title").value = "";
     }
-    document.getElementById("sub-task-title").value = ""
 }
 
 /* Displaying subtasks for specific task */

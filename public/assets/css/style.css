@@ -79,8 +79,6 @@
 #main-display{
     transition: 0.5s all;
 }
-
-
 /* ----------------------------- tasks tab 
 ------------------------------- */
 #main-display .add-task{
@@ -138,6 +136,9 @@
     cursor: pointer;
     transition: 0.5s all;
     border-radius: 5px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
 }
 #main-display #tasks-list .single-task:hover{
     background-color: #1e305e;
@@ -158,6 +159,7 @@
     background-color: white;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #tasks-list .single-task h3{
     font-family: 'Montserrat-Regular';
