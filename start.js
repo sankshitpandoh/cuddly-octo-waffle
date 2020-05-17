@@ -193,7 +193,8 @@
     if(days[day] === "Wednesday" || days[day] === "Friday"){
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
-            for(let i = (dataArray.length - 1); i > 0 ; i--){
+            /* Check here, i > 1 becasue we dont want to send the test task to completed */
+            for(let i = (dataArray.length - 1); i > 1 ; i--){
                 if(dataArray[i].completed === 1){
                     compArray.push(dataArray[i])
                     dataArray.splice(i,1)
