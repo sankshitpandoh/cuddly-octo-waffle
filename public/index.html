@@ -86,7 +86,7 @@
                         <h5 class="mb-2">Comments:</h5>
                         <div id="comments-cont" class="mb-2"></div>
                         <span class="d-flex justify-content-between">
-                            <input id="comment-title" class="" placeholder="Type Comments here ..."/>
+                            <input id="comment-title" class="" placeholder="Type Comments here ..." onkeypress="return checkCommentSend(event)"/>
                             <input type="submit" value="Add" class="submit-comment p-1" onclick="addComment()" />
                         </span>
                     </div>

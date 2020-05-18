@@ -652,6 +652,26 @@
     background-color: #000;
     border-radius: 5px;
 }
+#details-tab .comments-box #comments-cont .single-comment-origin p{
+    max-width: 45%;
+    margin-left: auto;
+    background-color: #fff;
+    font-family: 'Montserrat-Regular';
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.1;
+}
+#details-tab .comments-box #comments-cont .single-comment-diff-origin p{
+    max-width: 45%;
+    margin-right: auto;
+    background-color: #FFC68A;
+    font-family: 'Montserrat-Regular';
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.1;
+}
 #details-tab .comments-box #comment-title{
     background-color: transparent;
     border: none;

@@ -180,7 +180,7 @@ function updateData(id,x){
         }
     }
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    getData.open("POST", "https://note-it-keeper.herokuapp.com/receiveData", true );
+    getData.open("POST", "http://localhost:8000/receiveData", true );
     getData.setRequestHeader("Content-Type","application/json; charset=utf-8");
     getData.send((JSON.stringify(identify)));
 }
@@ -257,9 +257,9 @@ function checkTaskSend(event){
     }
 }
 
-// Send task to server to store
+/* Send task to server to store */
 function sendTask(){
-    // Time when the task is being added to get the time stamp
+    /* Time when the task is being added to get the time stamp */
     time = new Date();
     time = Date.parse(time);
 
@@ -274,16 +274,15 @@ function sendTask(){
             timeStamp: time
         }
         let myJSON = JSON.stringify(myTask);
-        console.log(myJSON); //This is a check
         let xhttp = new XMLHttpRequest();
     
         /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-        xhttp.open("POST", "https://note-it-keeper.herokuapp.com/sendtask", true);
+        xhttp.open("POST", "http://localhost:8000/sendtask", true);
         xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
         xhttp.send(myJSON);
         xhttp.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200) {
-                // If the task is successfully stored on server, update the data on tasks tab
+                /* If the task is successfully stored on server, update the data on tasks tab */
                 console.log('task sent to server')
                 updateData("tasks")
             }
@@ -293,32 +292,31 @@ function sendTask(){
     }
 }
 
-//Expand details for single task
+/* Expand details for single task */
 function expandTask(x){
     closeTask()
     console.log(x.id);
     displayTaskDetails(x.id);
     document.getElementById("details-tab").style.width = "25%";
-    // document.getElementById("details-tab").style.left = "75%";
     document.getElementById("main-display").style.width = "70%";
     console.log(tracker + " " + rData.length + " " + x)
     document.getElementById("task-" + tracker).classList.add("active-task")
 }
 
-// Fetching Task Details from server
+/* Fetching Task Details from server */
 function displayTaskDetails(x){
     console.log(rData)
     let taskNumber = x.substring(5,(x.length));
     tracker = taskNumber
     document.getElementById("deadline-date").value = rData[taskNumber].taskDeadline;
     document.getElementById("deadline-time").value = rData[taskNumber].taskDeadlineTime;
-    // - document.getElementById("sub-tasks").value = rData[taskNumber].taskSubtasks;
     document.getElementById("prior").value = rData[taskNumber].taskPriority;
     // -document.getElementById("").value = rData[taskNumber].taskDetails;
     displaySubTask()
+    displayComments()
 }
 
-// Send task details to server and saving it in data.json
+/* Send task details to server and saving it in data.json */
 function saveDetails(){
     let taskDeadline = document.getElementById("deadline-date").value;
     let taskDeadlineTime = document.getElementById("deadline-time").value;
@@ -331,27 +329,27 @@ function saveDetails(){
         // - subTasks : taskSubtasks,
         priority : taskPriority,
         // - tdetails : taskDetails,
-        trackTask : tracker //tracker keeps a track of which task is currently going on and needs to be updated
+        trackTask : tracker /* tracker has a track of which task is currently going on and needs to be updated */
     }
     console.log(details)
     details = JSON.stringify(details);
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/sendDetails", true);
+    xhttp.open("POST", "http://localhost:8000/sendDetails", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(details);
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            // If the date is successfully sent to server, update on console
+            /* If the date is successfully sent to server, update on console */
             console.log('Task details sent to server')
-            updateData(tabTracker) //Update data on the tab that is opened
+            updateData(tabTracker) /* Update data on the tab that is opened */
             closeTask()
         }
     }
 }
 
-//Expand details for single task
+/* Expand details for single task */
 function closeTask(){
     if(document.getElementById("details-tab").offsetWidth == 2){
         document.getElementById("details-tab").style.width = "0%";
@@ -366,11 +364,14 @@ function closeTask(){
 
 }
 
-//Update High Priority tasks when opened
+/* Update High Priority tasks when opened */
 function updateHighP(){
     let hPrior = [];
-    let hTracker = []; // Keeps a track of high prior tasks in sync with server to allow changes or etc
-    // Loop through all tasks to find all tasks with high priority
+
+    /* Keeps a track of high prior tasks in sync with server to allow changes or etc */
+    let hTracker = []; 
+
+    /* Loop through all tasks to find tasks with high priority */
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "hp"){
             hPrior.push(rData[i]);
@@ -378,10 +379,10 @@ function updateHighP(){
         }
     }
     
-    // CLearing previous all tasks
+    /* CLearing previous all tasks */
     document.getElementById("High-p-tasks").innerHTML = ""
 
-    // Displaying high priority tasks
+    /* Displaying high priority tasks */
     for(let i = 0; i < hPrior.length; i++){
         if(hPrior[i].completed === 1){
             document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${hTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2 p-1" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${hPrior[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
@@ -420,11 +421,14 @@ function updateHighP(){
     }
 }
 
-//Update Medium Priority tasks when opened
+/* Update Medium Priority tasks when opened */
 function updateMediumP(){
     let mPrior = [];
-    let mTracker = []; // Keeps a track of medium prior tasks in sync with server to allow changes or etc
-    // Loop through all tasks to find all tasks with medium priority
+
+    /* Keeps a track of medium prior tasks in sync with server to allow changes or etc */
+    let mTracker = []; 
+
+    /* Loop through all tasks to find all tasks with medium priority */
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "mp"){
             mPrior.push(rData[i]);
@@ -432,10 +436,10 @@ function updateMediumP(){
         }
     }
 
-    // CLearing previous all tasks
+    /* Clearing previous all tasks */
     document.getElementById("Medium-p-tasks").innerHTML = ""
 
-    // Displaying medium priority tasks
+    /* Displaying medium priority tasks */
     for(let i = 0; i < mPrior.length; i++){
         if( mPrior[i].completed === 1){
             document.getElementById("Medium-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${mTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${mTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-M-task d-flex my-2 p-1" id="task-${mTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${mPrior[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
@@ -474,11 +478,14 @@ function updateMediumP(){
     }
 }
 
-//Update Low Priority tasks when opened
+/* Update Low Priority tasks when opened */
 function updateLowP(){
     let lPrior = [];
-    let lTracker = []; // Keeps a track of low prior tasks in sync with server to allow changes or etc
-    // Loop through all tasks to find all tasks with low priority
+
+    /* Keeps a track of low prior tasks in sync with server to allow changes or etc */
+    let lTracker = [];
+    
+    /* Loop through all tasks to find all tasks with low priority */
     for(let i = 1; i < rData.length; i++){
         if(rData[i].taskPriority === "lp"){
             lPrior.push(rData[i]);
@@ -486,10 +493,10 @@ function updateLowP(){
         }
     }
 
-    // CLearing previous all tasks
+    /* Clearing previous all tasks */
     document.getElementById("Low-p-tasks").innerHTML = ""
 
-    // Displaying low priority tasks
+    /* Displaying low priority tasks */
     for(let i = 0; i < lPrior.length; i++){
         if(lPrior[i].completed === 1){
             document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${lTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2 p-1" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${lPrior[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
@@ -524,12 +531,11 @@ function updateLowP(){
                 }
                  document.getElementById("task-comp-" + i).style.width = compBar + "%"
             }
-            // document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${lTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2 p-1" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${lPrior[i].tasksTitle} </h3></div></div>`;
         }
     }
 }
 
-// If a task is completed
+/* If a task is completed */
 function taskCompleted(x){
     console.log(x.id);
     let identifier = x.id;
@@ -541,12 +547,12 @@ function taskCompleted(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/completed", true);
+    xhttp.open("POST", "http://localhost:8000/completed", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            // If the date is successfully sent to server, update on console
+            /* If the data is successfully sent to server, update on console */
             console.log('Completion status sent to server')
                 /* y is passed as true to updateData here to run displaySubTask() as a callback */
                 let y = true
@@ -556,7 +562,7 @@ function taskCompleted(x){
     
 }
 
-// Uncheck a completed task
+/* Uncheck a completed task */
 function taskNotCompleted(x){
     console.log(x.id);
     let identifier = x.id;
@@ -568,12 +574,12 @@ function taskNotCompleted(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/notCompleted", true);
+    xhttp.open("POST", "http://localhost:8000/notCompleted", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            // If the date is successfully sent to server, update on console
+            /* If the date is successfully sent to server, update on console */
             console.log('Completion status sent to server')
                 /* y is passed as true to updateData here to run displaySubTask() as a callback */
                 let y = true
@@ -595,7 +601,7 @@ function updateCompTasks(){
     }
 }
 
-//Remove the selected task
+/* Remove the selected task */
 function deleteTask(x){
     console.log(x.id)
     let iden = (x.id).substring(4, x.id.length)
@@ -606,12 +612,12 @@ function deleteTask(x){
     let xhttp = new XMLHttpRequest();
     
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST" , "https://note-it-keeper.herokuapp.com/rmtask" , true);
+    xhttp.open("POST" , "http://localhost:8000/rmtask" , true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send((JSON.stringify(identify)));
     xhttp.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
-            // If the task is successfully removed from server, update the data on tasks
+            /* If the task is successfully removed from server, update the data on tasks */
             updateData(tabTracker);
             document.getElementById("details-tab").style.width = "0%";
             document.getElementById("main-display").style.width = "100%";
@@ -627,6 +633,7 @@ function checkSubTaskSend(event){
         addSubTask()
     }
 }
+
 /* Adding subtasks to a particular task */
 function addSubTask(){
     let subT = document.getElementById("sub-task-title").value
@@ -641,7 +648,7 @@ function addSubTask(){
             complete : 0
         }
         /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-        xhttp.open("POST" , "https://note-it-keeper.herokuapp.com/getSubTask" , true);
+        xhttp.open("POST" , "http://localhost:8000/getSubTask" , true);
         xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
         xhttp.send((JSON.stringify(subTask)));
         xhttp.onreadystatechange = function(){
@@ -661,12 +668,12 @@ function displaySubTask(){
         document.getElementById("sub-tasks").innerHTML = `<p>No Sub Tasks yet</p>`;
     }
     else{
+        /* Nice */
         document.getElementById("sub-tasks").innerHTML = "";
         for(let i = 0; i < rData[tracker].taskSubtasks.length; i++){
             if(rData[tracker].taskSubtasks[i].completed === 0){
                 document.getElementById("sub-tasks").innerHTML += `<div class="single-sub-task d-flex mb-2" id="subTask-${i}"><div class="at-cont" id="s-t-${i}" onclick="compSubTask(this)"><i class="fa fa-check px-1"></i></div><div class="at-cont" id="st-${i}" onclick="delSubTask(this)"><i class="fa fa-trash px-1"></i></div><div class="single-sub-cont d-flex align-items-center ml-1 px-1"><p>${rData[tracker].taskSubtasks[i].sTask}</p></div></div>`;
             }
-            /* Nice */
             else{
                 document.getElementById("sub-tasks").innerHTML += `<div class="single-sub-task d-flex mb-2" id="subTask-${i}"><div class="at-cont-comp" id="s-t-${i}" onclick="unCompSubTask(this)"><i class="fa fa-check px-1"></i></div><div class="at-cont" id="st-${i}" onclick="delSubTask(this)"><i class="fa fa-trash px-1"></i></div><div class="single-sub-cont d-flex align-items-center ml-1 px-1"><p class="completed-sub">${rData[tracker].taskSubtasks[i].sTask}</p></div></div>`;
             }
@@ -685,7 +692,7 @@ function compSubTask(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/subTComp", true);
+    xhttp.open("POST", "http://localhost:8000/subTComp", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -710,7 +717,7 @@ function unCompSubTask(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/subTUnComp", true);
+    xhttp.open("POST", "http://localhost:8000/subTUnComp", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -735,7 +742,7 @@ function delSubTask(x){
     let xhttp = new XMLHttpRequest();
 
     /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
-    xhttp.open("POST", "https://note-it-keeper.herokuapp.com/removeSub", true);
+    xhttp.open("POST", "http://localhost:8000/removeSub", true);
     xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
     xhttp.send(jsonComp);
     xhttp.onreadystatechange = function(){
@@ -748,6 +755,60 @@ function delSubTask(x){
         }
     }
 }
-/* To DO 
-    - improve layout for different priority tabs too
-    - if implementing socket .io in comments section add functionality to create different users */
+
+/* Submit Comments on press of enter key */
+function checkCommentSend(event){
+    if(event.keyCode === 13){
+        // event.preventDefault
+        addComment()
+    }
+}
+
+/* Adding comments to a particular task */
+function addComment(){
+    console.log(userName)
+    let comT = document.getElementById("comment-title").value
+    if(isEmpty(comT)){
+        document.getElementById("comment-title").value = "";
+    }
+    else{
+        let xhttp = new XMLHttpRequest();
+        let comment = {
+            com : comT,
+            trackTask : tracker,
+            by : userName
+        }
+        /* replace https://note-it-keeper.herokuapp.com/ to http://localhost:8000 when running locally  */
+        xhttp.open("POST" , "http://localhost:8000/getComment" , true);
+        xhttp.setRequestHeader("Content-Type","application/json; charset=utf-8");
+        xhttp.send((JSON.stringify(comment)));
+        xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                /* y is passed as true to updateData here to run displaySubTask() as a callback */
+                let y = true
+                updateData(tabTracker,y);
+            }
+        }
+        document.getElementById("comment-title").value = "";
+    }
+}
+
+/* Displaying comments for a specific task */
+function displayComments(){
+    // console.log('hi')
+    if(rData[tracker].taskComments.length === 0){
+        document.getElementById("comments-cont").innerHTML = `<p>No Comments yet</p>`;
+    }
+    else{
+        document.getElementById("comments-cont").innerHTML = "";
+        for(let i = 0; i < rData[tracker].taskComments.length; i++){
+            if(rData[tracker].taskComments[i].byUser === userName){
+                document.getElementById("comments-cont").innerHTML += `<div class="single-comment-origin d-flex my-1 mr-1"><p class="p-1">${rData[tracker].taskComments[i].comment}</p></div>`;
+            }
+            else{
+                document.getElementById("comments-cont").innerHTML += `<div class="single-comment-diff-origin d-flex my-1 ml-1"><p class="p-1">${rData[tracker].taskComments[i].comment}</p></div>`;
+
+            }
+        }
+    }
+}

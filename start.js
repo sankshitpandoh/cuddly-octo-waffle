@@ -152,6 +152,23 @@
             res.send("Data Updated")
         })
 
+        /* API called when user adds a comment to a specific task */
+        app.post("/getComment", function(req, res){
+            fs.readFile('./data/data.json', function(err, OldData){
+                let dataArray = JSON.parse(OldData);
+                let sObj = {
+                    comment : req.body.com,
+                    byUser : req.body.by
+                }
+                dataArray[req.body.trackTask].taskComments.push(sObj);
+                fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
+                    if (err) throw err;
+                    console.log('The comment ' + req.body.com + ' was successfully appended to task' + req.body.trackTask);
+                });
+            });
+            res.send("Comment added");
+        });
+
     // API called when the user completes a task
     app.post("/completed", function(req, res){
         fs.readFile('./data/data.json', function (err, OldData) {
