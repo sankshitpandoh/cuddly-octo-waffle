@@ -368,6 +368,16 @@
     scrollbar-width: none;
     white-space: nowrap;
     overflow-x: auto;
+    position: relative;
+}
+#main-display #Medium-p-tasks .single-M-task span{
+    background-color: green;
+    opacity: 0.35;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.5s all;
 }
 #main-display #Medium-p-tasks .single-M-task:hover{
     /* background-color: #EE4540; */
