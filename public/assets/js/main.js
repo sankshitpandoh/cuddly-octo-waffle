@@ -496,7 +496,35 @@ function updateLowP(){
             document.getElementById("task-comp-" + i).style.width = "100%";
         }
         else{
-            document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${lTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2 p-1" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${lPrior[i].tasksTitle} </h3></div></div>`;
+            if(lPrior[i].taskSubtasks.length === 0){
+                document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${lTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2 p-1" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${lPrior[i].tasksTitle} </h3></div></div>`;
+            }
+            else{
+                let compCounter = 0;
+                let nCompCounter = 0
+                for(let j = 0; j < lPrior[i].taskSubtasks.length; j++){
+                    console.log(lPrior[i].taskSubtasks[j].completed)
+                    if(lPrior[i].taskSubtasks[j].completed === 1){
+                        compCounter  = compCounter + 1
+                    }
+                    else{
+                        nCompCounter = nCompCounter + 1
+                    }
+                }
+                document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${lTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2 p-1" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${lPrior[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
+
+                compBar = 100 / (compCounter + nCompCounter);
+                compBar = compBar * compCounter;
+                if(compBar === 100){
+                    console.log(i + " " + tracker)
+                    let iden = {
+                        id : "C-" + tracker
+                    }
+                    taskCompleted(iden);
+                }
+                 document.getElementById("task-comp-" + i).style.width = compBar + "%"
+            }
+            // document.getElementById("Low-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${lTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${lTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-L-task d-flex my-2 p-1" id="task-${lTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${lPrior[i].tasksTitle} </h3></div></div>`;
         }
     }
 }
