@@ -72,6 +72,37 @@
     background-color: #FFC68A;
     color: #262833;
 }
+.main-nav .single-nav-link{
+    position: relative;
+}
+.main-nav .single-nav-link .high-prior{
+    position: absolute;
+    right: 5px;
+    width: 8px;
+    top: 10%;
+    background-color: #FFFF25;
+    background-color: #F62323;
+    height: 80%;
+    border-radius: 2px;
+}
+.main-nav .single-nav-link .med-prior{
+    position: absolute;
+    right: 5px;
+    width: 8px;
+    top: 10%;
+    background-color: #FFFF25;
+    height: 80%;
+    border-radius: 2px;
+}
+.main-nav .single-nav-link .low-prior{
+    position: absolute;
+    right: 5px;
+    width: 8px;
+    top: 10%;
+    background-color: #9BBB59;
+    height: 80%;
+    border-radius: 2px;
+}
 .main-nav .active-nav{
     background-color: #FFC68A;
     color: #262833;
@@ -82,6 +113,7 @@
 #main-display{
     transition: 0.5s all;
 }
+
 /* ----------------------------- tasks tab 
 ------------------------------- */
 #main-display .add-task{
@@ -133,6 +165,9 @@
 ::-webkit-scrollbar {
     display: none;
 }
+#main-display #tasks-list .single-container{
+    position: relative;
+}
 #main-display #tasks-list .single-task{
     background-color: #424141;
     width: 100%;
@@ -144,42 +179,37 @@
     white-space: nowrap;
     position: relative;
 }
-#main-display #tasks-list .single-task .high-prior{
+
+/* priority tags on single task starts here */
+#main-display #tasks-list .single-container .high-prior{
     position: absolute;
-    right: 0;
-    width: 15px;
-    background-color: #C70000;
-    height: 25%;
-    top: 50%;
-    transform: translate(0%,-50%);
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    font-family: 'Montserrat-Regular';
+    right: 5px;
+    width: 10px;
+    top: 20%;
+    background-color: #F62323;
+    height: 60%;
+    border-radius: 2px;
 }
-#main-display #tasks-list .single-task .med-prior{
+#main-display #tasks-list .single-container .med-prior{
     position: absolute;
-    right: 0;
-    width: 15px;
-    background-color: #F5C400;
-    height: 25%;
-    top: 50%;
-    transform: translate(0%,-50%);
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    font-family: 'Montserrat-Regular';
+    right: 5px;
+    width: 10px;
+    top: 20%;
+    background-color: #FFFF25;
+    height: 60%;
+    border-radius: 2px;
 }
-#main-display #tasks-list .single-task .low-prior{
+#main-display #tasks-list .single-container .low-prior{
     position: absolute;
-    right: 0;
-    width: 15px;
-    background-color: #DDDDD4;
-    height: 25%;
-    top: 50%;
-    transform: translate(0%,-50%);
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    font-family: 'Montserrat-Regular';
+    right: 5px;
+    width: 10px;
+    top: 20%;
+    background-color: #9BBB59;
+    height: 60%;
+    border-radius: 2px;
 }
+/* priority tags on single task ends here */
+
 #main-display #tasks-list .single-task span{
     background-color: green;
     opacity: 0.35;
@@ -187,7 +217,6 @@
     position: absolute;
     left: 0;
     top: 0;
-    /* width: 0; */
     transition: 0.5s all;
     
 }
@@ -216,6 +245,9 @@
     font-family: 'Montserrat-Regular';
     color: #ececec;
     font-size: 18px;
+    width: 97%;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 #main-display .task-container .no-data{
     font-size: 20px;
@@ -223,11 +255,16 @@
     /* color: #FFC68A; */
 }
 
-/* ---------------------------- High Priority tab
-------------------------------- */
+/*  High Priority tab starts here */
 #main-display .heading{
     color: rgba(255, 255, 255, 0.92);
     font-family: 'Montserrat-Bold';
+    margin-left: -15px;
+}
+#main-display .heading .high-p-heading{
+    text-decoration: underline;
+    text-decoration-color: #F62323;
+    text-decoration-style: dotted;
 }
 #main-display #High-p-tasks{
     overflow-y: scroll;
@@ -240,6 +277,7 @@
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #High-p-tasks .completed:hover{
     background-color: white;
@@ -250,23 +288,40 @@
     background-color: white;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #High-p-tasks .single-H-task{
-    background-color: #ee4540;
+    background-color: #424141;
+    /* background-color: #ee4540; */
     transition: 0.5s all;
     cursor: pointer;
     width: 100%;
+    border-radius: 5px;
+    scrollbar-width: none;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 #main-display #High-p-tasks .single-H-task:hover{
-    background-color: #ff5c57;
+    background-color: #828282;
+    /* background-color: #ff5c57; */
 }
 #main-display #High-p-tasks .single-H-task h3{
-    font-family: 'Montserrat-Bold';
-    color: black;
+    font-family: 'Montserrat-Regular';
+    font-size: 18px;
+    color: #fff;
+    width: 97%;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
+/*  High Priority tab ends here */
 
 /* ---------------------------- Medium Priority tab
 ------------------------------- */
+#main-display .heading .med-p-heading{
+    text-decoration: underline;
+    text-decoration-color: #FFFF25;
+    text-decoration-style: dotted;
+}
 #main-display #Medium-p-tasks{
     overflow-y: scroll;
     max-height: 90vh;
@@ -305,6 +360,11 @@
 
 /* ---------------------------- Low Priority tab
 ------------------------------- */
+#main-display .heading .low-p-heading{
+    text-decoration: underline;
+    text-decoration-color: #9BBB59;
+    text-decoration-style: dotted;
+}
 #main-display #Low-p-tasks{
     overflow-y: scroll;
     max-height: 90vh;
