@@ -458,16 +458,24 @@
 ------------------------------- */
 #main-display #comp-tasks h4{
     color: #1e305e;
+    margin-left: -15px;
 }
 #main-display #comp-tasks .single-comp-task{
     background-color: #29c7ac;
+    transition: 0.5s all;
     cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    scrollbar-width: none;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 #main-display #comp-tasks .single-comp-task h3{
     text-decoration: line-through;
     text-decoration-thickness: 2px;
     text-decoration-color: white;
-    font-family: 'Montserrat-Bold';
+    font-family: 'Montserrat-Regular';
+    font-size: 18px;
     color: #202040;
 }
 
