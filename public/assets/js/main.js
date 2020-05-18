@@ -192,7 +192,7 @@ function updateTasks(rData,id){
     for(let i = 1 ; i <rData.length; i++ ){
         if(rData[i].completed === 1){
             document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div></div>`;
-            document.getElementById("task-comp-" + i).style.width = "100%"
+            document.getElementById("task-comp-" + i).style.width = "100%";
         }
         else{
             /* When I wrote this only me and God knew how this was working
@@ -384,10 +384,38 @@ function updateHighP(){
     // Displaying high priority tasks
     for(let i = 0; i < hPrior.length; i++){
         if(hPrior[i].completed === 1){
-            document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${hTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2 p-1" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${hPrior[i].tasksTitle} </h3></div></div>`;
+            document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${hTracker[i]}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2 p-1" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${hPrior[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
+            document.getElementById("task-comp-" + i).style.width = "100%";
         }
         else{
-            document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${hTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2 p-1" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${hPrior[i].tasksTitle} </h3></div></div>`;
+            if(hPrior[i].taskSubtasks.length === 0){
+                document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${hTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2 p-1" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${hPrior[i].tasksTitle} </h3></div></div>`;
+            }
+            else{
+                let compCounter = 0;
+                let nCompCounter = 0
+                for(let j = 0; j < hPrior[i].taskSubtasks.length; j++){
+                    console.log(hPrior[i].taskSubtasks[j].completed)
+                    if(hPrior[i].taskSubtasks[j].completed === 1){
+                        compCounter  = compCounter + 1
+                    }
+                    else{
+                        nCompCounter = nCompCounter + 1
+                    }
+                }
+                document.getElementById("High-p-tasks").innerHTML += `<div class="d-flex"><div title="Click if completed" class="completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${hTracker[i]}" onclick="taskCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2 align-items-center" id="tId-${hTracker[i]}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-H-task d-flex my-2 p-1" id="task-${hTracker[i]}" onclick="expandTask(this)"><h3 class="mx-2 py-1">${hPrior[i].tasksTitle} </h3><span id="task-comp-${i}"></span></div></div>`;
+
+                compBar = 100 / (compCounter + nCompCounter);
+                compBar = compBar * compCounter;
+                if(compBar === 100){
+                    console.log(i + " " + tracker)
+                    let iden = {
+                        id : "C-" + tracker
+                    }
+                    taskCompleted(iden)
+                }
+                 document.getElementById("task-comp-" + i).style.width = compBar + "%"
+            }
         }
     }
 }

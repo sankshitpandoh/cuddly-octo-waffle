@@ -218,7 +218,6 @@
     left: 0;
     top: 0;
     transition: 0.5s all;
-    
 }
 #main-display #tasks-list .single-task:hover{
     background-color: #828282;
@@ -303,6 +302,16 @@
     scrollbar-width: none;
     white-space: nowrap;
     overflow-x: auto;
+    position: relative;
+}
+#main-display #High-p-tasks .single-H-task span{
+    background-color: green;
+    opacity: 0.35;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.5s all;
 }
 #main-display #High-p-tasks .single-H-task:hover{
     background-color: #828282;

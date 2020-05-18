@@ -157,6 +157,7 @@
         fs.readFile('./data/data.json', function (err, OldData) {
             let dataArray = JSON.parse(OldData);
             dataArray[req.body.id].completed = 1;
+            // console.log(req.body.id + "here")
             for(let i = 0; i < dataArray[req.body.id].taskSubtasks.length; i++ ){
                 dataArray[req.body.id].taskSubtasks[i].completed = 1;
             }
