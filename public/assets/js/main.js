@@ -175,7 +175,8 @@ function updateData(id,x){
             }
             /* To update subtasks in real time */
             if(x === true){
-                displaySubTask()
+                displaySubTask();
+                displayComments();
             }
         }
     }
@@ -311,24 +312,19 @@ function displayTaskDetails(x){
     document.getElementById("deadline-date").value = rData[taskNumber].taskDeadline;
     document.getElementById("deadline-time").value = rData[taskNumber].taskDeadlineTime;
     document.getElementById("prior").value = rData[taskNumber].taskPriority;
-    // -document.getElementById("").value = rData[taskNumber].taskDetails;
-    displaySubTask()
-    displayComments()
+    displaySubTask();
+    displayComments();
 }
 
 /* Send task details to server and saving it in data.json */
 function saveDetails(){
     let taskDeadline = document.getElementById("deadline-date").value;
     let taskDeadlineTime = document.getElementById("deadline-time").value;
-    // - let taskSubtasks = document.getElementById("sub-tasks").value;
     let taskPriority = document.getElementById("prior").value;
-    // -let taskDetails = document.getElementById("details").value;
     let details = {
         deadLine : taskDeadline,
         deadLineTime : taskDeadlineTime,
-        // - subTasks : taskSubtasks,
         priority : taskPriority,
-        // - tdetails : taskDetails,
         trackTask : tracker /* tracker has a track of which task is currently going on and needs to be updated */
     }
     console.log(details)
@@ -668,9 +664,9 @@ function displaySubTask(){
         document.getElementById("sub-tasks").innerHTML = `<p>No Sub Tasks yet</p>`;
     }
     else{
-        /* Nice */
         document.getElementById("sub-tasks").innerHTML = "";
         for(let i = 0; i < rData[tracker].taskSubtasks.length; i++){
+            /* Nice */
             if(rData[tracker].taskSubtasks[i].completed === 0){
                 document.getElementById("sub-tasks").innerHTML += `<div class="single-sub-task d-flex mb-2" id="subTask-${i}"><div class="at-cont" id="s-t-${i}" onclick="compSubTask(this)"><i class="fa fa-check px-1"></i></div><div class="at-cont" id="st-${i}" onclick="delSubTask(this)"><i class="fa fa-trash px-1"></i></div><div class="single-sub-cont d-flex align-items-center ml-1 px-1"><p>${rData[tracker].taskSubtasks[i].sTask}</p></div></div>`;
             }
@@ -806,9 +802,16 @@ function displayComments(){
                 document.getElementById("comments-cont").innerHTML += `<div class="single-comment-origin d-flex my-1 mr-1"><p class="p-1">${rData[tracker].taskComments[i].comment}</p></div>`;
             }
             else{
-                document.getElementById("comments-cont").innerHTML += `<div class="single-comment-diff-origin d-flex my-1 ml-1"><p class="p-1">${rData[tracker].taskComments[i].comment}</p></div>`;
+                document.getElementById("comments-cont").innerHTML += `<div class="diff-origin-cont mb-1"><p class="ml-1">${rData[tracker].taskComments[i].byUser}</p><div class="single-comment-diff-origin d-flex mb-1 ml-1"><p class="p-1">${rData[tracker].taskComments[i].comment}</p></div></div>`;
 
             }
         }
+        scrollToBottomComment();
     }
+}
+
+/* Scroll to bottom comment whenever any new comment is added or comment tab is updated */
+function scrollToBottomComment(){
+    let commentAreaScrollHeight = document.getElementById("comments-cont").scrollHeight;
+    document.getElementById("comments-cont").scrollTop = commentAreaScrollHeight;
 }

@@ -651,6 +651,7 @@
     scrollbar-width: none;
     background-color: #000;
     border-radius: 5px;
+    scroll-behavior: smooth;
 }
 #details-tab .comments-box #comments-cont .single-comment-origin p{
     max-width: 45%;
@@ -660,9 +661,14 @@
     border-radius: 5px;
     border-top-right-radius: 0;
     overflow-wrap: anywhere;
+    font-size: 15px;
     line-height: 1.1;
 }
-#details-tab .comments-box #comments-cont .single-comment-diff-origin p{
+#details-tab .comments-box #comments-cont .diff-origin-cont p{
+    font-family: 'Montserrat-Light';
+    font-size: 12px;
+}
+#details-tab .comments-box #comments-cont .diff-origin-cont .single-comment-diff-origin p{
     max-width: 45%;
     margin-right: auto;
     background-color: #FFC68A;
@@ -671,6 +677,7 @@
     border-top-left-radius: 0;
     overflow-wrap: anywhere;
     line-height: 1.1;
+    font-size: 15px;
 }
 #details-tab .comments-box #comment-title{
     background-color: transparent;
