@@ -255,12 +255,15 @@
     /* color: #FFC68A; */
 }
 
-/*  High Priority tab starts here */
+/* Heading for all tabs start here */
 #main-display .heading{
     color: rgba(255, 255, 255, 0.92);
     font-family: 'Montserrat-Bold';
     margin-left: -15px;
 }
+/* Heading for all tabs end here */
+
+/*  High Priority tab starts here */
 #main-display .heading .high-p-heading{
     text-decoration: underline;
     text-decoration-color: #F62323;
@@ -333,6 +336,7 @@
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #Medium-p-tasks .completed:hover{
     background-color: white;
@@ -343,19 +347,30 @@
     background-color: white;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #Medium-p-tasks .single-M-task{
-    background-color: #c72c41;
+    /* background-color: #c72c41; */
+    background-color: #424141;
     transition: 0.5s all;
     cursor: pointer;
     width: 100%;
+    border-radius: 5px;
+    scrollbar-width: none;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 #main-display #Medium-p-tasks .single-M-task:hover{
-    background-color: #EE4540;
+    /* background-color: #EE4540; */
+    background-color: #828282;
 }
 #main-display #Medium-p-tasks .single-M-task h3{
-    font-family: 'Montserrat-Bold';
-    color: black;
+    font-family: 'Montserrat-Regular';
+    color: #fff;
+    font-size: 18px;
+    width: 97%;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 
 /* ---------------------------- Low Priority tab
@@ -376,6 +391,7 @@
     background-color: black;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #Low-p-tasks .completed:hover{
     background-color: white;
@@ -386,19 +402,27 @@
     background-color: white;
     cursor: pointer;
     transition: 0.5s all;
+    border-radius: 5px;
 }
 #main-display #Low-p-tasks .single-L-task{
-    background-color: #801336;
+    /* background-color: #801336; */
+    background-color: #424141;
     transition: 0.5s all;
     cursor: pointer;
     width: 100%;
+    border-radius: 5px;
+    scrollbar-width: none;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 #main-display #Low-p-tasks .single-L-task:hover{
-    background-color: #c72c41;
+    /* background-color: #c72c41; */
+    background-color: #828282;
 }
 #main-display #Low-p-tasks .single-L-task h3{
-    font-family: 'Montserrat-Bold';
-    color: black;
+    font-family: 'Montserrat-Regular';
+    color: #fff;
+    font-size: 18px;
 }
 
 /* ---------------------------- Completed tasks tab
