@@ -819,24 +819,22 @@ function scrollToBottomComment(){
 function sortList(x){
     // console.log(x)
     if(x === 'old-first'){
-        // updateTasks(rData,'tasks')
+        updateTasks(rData,'tasks');
     }
     else if(x === 'new-first'){
-        newFirst()
+        newFirst();
     }
     else if(x === 'prior-highToLow'){
-        priorHtoL()
+        priorHtoL();
     }
     else{
-        console.log(x)
+        priorLtoH();
     }
 }
 
 function newFirst(){
     let x = document.querySelectorAll(".single-container");
     let newArray = [];
-    // console.log(x)
-    // console.log(x[0].firstChild.id)
     for(let i = 0; i < x.length; i++){
         let s = x[i].firstChild.id
         s = s.substring(2,s.length)
@@ -919,6 +917,71 @@ function priorHtoL(){
         document.getElementById('tasks-list').appendChild(newArray[i].elem);
     }
 
+}
+
+function priorLtoH(){
+    let x = document.querySelectorAll(".single-container");
+    let newArray = [];
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === ''){
+        newArray.push(obj)
+        }
+    }
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === 'lp'){
+        newArray.push(obj)
+        }
+    }
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === 'mp'){
+        newArray.push(obj)
+        }
+    }
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === 'hp'){
+        newArray.push(obj)
+        }
+    }
+    document.getElementById('tasks-list').innerHTML = "";
+    for(let i = 0; i < newArray.length; i++){
+        document.getElementById('tasks-list').appendChild(newArray[i].elem);
+    }
 }
 
 /* TODO
