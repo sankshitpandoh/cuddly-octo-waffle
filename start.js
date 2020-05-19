@@ -85,8 +85,6 @@
             dataArray[req.body.trackTask].taskDeadline = req.body.deadLine;
             dataArray[req.body.trackTask].taskDeadlineTime = req.body.deadLineTime;
             dataArray[req.body.trackTask].taskPriority = req.body.priority;
-            // dataArray[req.body.trackTask].taskDetails = req.body.tdetails;
-            console.log(JSON.stringify(dataArray));
             fs.writeFile("./data/data.json", JSON.stringify(dataArray), function(err){
               if (err) throw err;
               console.log('The details were successfully appended to task' + req.body.trackTask);

@@ -189,10 +189,22 @@ function updateData(id,x){
 /* Display all tasks */
 function updateTasks(rData,id){
     console.log(rData)
+    document.getElementById("sort-tasks").value = "old-first"
     document.getElementById(id + '-list').innerHTML = ""
     for(let i = 1 ; i <rData.length; i++ ){
         if(rData[i].completed === 1){
-            document.getElementById(id + "-list").innerHTML += `<div class="d-flex"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div></div>`;
+            if(rData[i].taskPriority === "hp"){
+                document.getElementById(id + "-list").innerHTML += `<div class="d-flex single-container"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div><div title="high priority" class="high-prior d-flex align-items-center justify-content-center"></div></div>`;
+            }
+            else if(rData[i].taskPriority === "mp"){
+                document.getElementById(id + "-list").innerHTML += `<div class="d-flex single-container"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div><div title="medium priority" class="med-prior d-flex align-items-center justify-content-center"></div></div>`; 
+            }
+            else if(rData[i].taskPriority === "lp"){
+                document.getElementById(id + "-list").innerHTML += `<div class="d-flex single-container"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div><div title="low priority" class="low-prior d-flex align-items-center justify-content-center"></div></div>`; 
+            }
+            else{
+            document.getElementById(id + "-list").innerHTML += `<div class="d-flex single-container"><div title="Click if not completed" class="yes-completed d-flex px-2 my-2 mr-1 align-items-center" id="t-${i}" onclick="taskNotCompleted(this)"><i class="fa fa-check"></i></div><div title="Click to delete task" class="del-task d-flex px-2 mr-1 my-2  align-items-center" id="tId-${i}" onclick="deleteTask(this)"><i class="fa fa-trash"></i></div><div class="single-task d-flex my-2 p-1" id="task-${i}" onclick="expandTask(this)"><h3 class="completed-task mx-2 py-1">${rData[i].tasksTitle}</h3><span id="task-comp-${i}"></span></div></div>`;
+            }
             document.getElementById("task-comp-" + i).style.width = "100%";
         }
         else{
@@ -846,6 +858,8 @@ function newFirst(){
         }
         newArray.push(obj)
     }
+    console.log(newArray)
+    console.log(rData)
     newArray.sort((a,b) => b.timeStamp - a.timeStamp);
     document.getElementById('tasks-list').innerHTML = "";
     for(let i = 0; i < newArray.length; i++){
