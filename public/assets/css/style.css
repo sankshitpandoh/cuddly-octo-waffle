@@ -156,6 +156,18 @@
     background-color: #000;
     color: #FFC68A;
 }
+#main-display .sort-tasks-cont span{
+    color: #FFC68A;
+    font-family: 'Montserrat-Light';
+}
+#main-display .sort-tasks-cont span #sort-tasks{
+    background-color: #000 ;
+    border: 0;
+    font-family: 'Montserrat-Light';
+    border-bottom: 1px solid #FFC68A;
+    color: #FFC68A;
+    /* padding: 5px 0; */
+}
 #main-display #tasks-list{
     overflow-y: scroll;
     max-height: 80vh;
@@ -643,7 +655,6 @@
     border-bottom: 1px solid #FFC68A;
     color: #FFC68A;
     padding: 5px 0;
-    /* border-radius: 5px; */
 }
 /* #details-tab .comments-box{
     background-color: #1D1D1D;

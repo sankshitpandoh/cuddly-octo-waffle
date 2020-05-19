@@ -300,7 +300,7 @@ function expandTask(x){
     displayTaskDetails(x.id);
     document.getElementById("details-tab").style.width = "25%";
     document.getElementById("main-display").style.width = "70%";
-    console.log(tracker + " " + rData.length + " " + x)
+    // console.log(tracker + " " + rData.length + " " + x)
     document.getElementById("task-" + tracker).classList.add("active-task")
 }
 
@@ -353,9 +353,9 @@ function closeTask(){
 
     }
     else{
-    document.getElementById("task-" + tracker).classList.remove("active-task")
     document.getElementById("details-tab").style.width = "0%";
     document.getElementById("main-display").style.width = "100%";
+    document.getElementById("task-" + tracker).classList.remove("active-task");
     }
 
 }
@@ -813,6 +813,112 @@ function displayComments(){
 function scrollToBottomComment(){
     let commentAreaScrollHeight = document.getElementById("comments-cont").scrollHeight;
     document.getElementById("comments-cont").scrollTop = commentAreaScrollHeight;
+}
+
+/* Sorting task list */
+function sortList(x){
+    // console.log(x)
+    if(x === 'old-first'){
+        // updateTasks(rData,'tasks')
+    }
+    else if(x === 'new-first'){
+        newFirst()
+    }
+    else if(x === 'prior-highToLow'){
+        priorHtoL()
+    }
+    else{
+        console.log(x)
+    }
+}
+
+function newFirst(){
+    let x = document.querySelectorAll(".single-container");
+    let newArray = [];
+    // console.log(x)
+    // console.log(x[0].firstChild.id)
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        let obj = {
+            elem : x[i],
+            timeStamp : rData[y].time
+        }
+        newArray.push(obj)
+    }
+    newArray.sort((a,b) => b.timeStamp - a.timeStamp);
+    document.getElementById('tasks-list').innerHTML = "";
+    for(let i = 0; i < newArray.length; i++){
+        document.getElementById('tasks-list').appendChild(newArray[i].elem);
+    }
+}
+
+function priorHtoL(){
+    let x = document.querySelectorAll(".single-container");
+    let newArray = [];
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === 'hp'){
+        newArray.push(obj)
+        }
+    }
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === 'mp'){
+        newArray.push(obj)
+        }
+    }
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === 'lp'){
+        newArray.push(obj)
+        }
+    }
+    for(let i = 0; i < x.length; i++){
+        let s = x[i].firstChild.id
+        s = s.substring(2,s.length)
+        let y = s
+        console.log(y)
+        console.log(rData[y].time);
+        let obj = {
+            elem : x[i],
+            priority : rData[y].taskPriority
+        }
+        if(obj.priority === ''){
+        newArray.push(obj)
+        }
+    }
+    document.getElementById('tasks-list').innerHTML = "";
+    for(let i = 0; i < newArray.length; i++){
+        document.getElementById('tasks-list').appendChild(newArray[i].elem);
+    }
+
 }
 
 /* TODO

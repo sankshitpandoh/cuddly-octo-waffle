@@ -8,6 +8,20 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-12">
+        <div class="sort-tasks-cont d-flex px-3 justify-content-end py-1">
+            <span>Sort by :  
+                <select class="ml-1" id="sort-tasks" onchange="sortList(this.value)">
+                    <option value="old-first"> Old First </option>
+                    <option value="new-first">New First</option>
+                    <option value="prior-highToLow">Priority High to Low</option>
+                    <option value="prior-lowToHigh">Priority Low to High</option>
+                </select>
+            </span>
+        </div>
+    </div>
+</div>
 <div class="row pr-3">
     <div class="col-12 my-2">
         <div id="tasks-list" class="d-flex flex-column"></div>
